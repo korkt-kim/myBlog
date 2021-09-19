@@ -4,24 +4,27 @@
       <img class="PolzLogo" src="/polz-logo.png" />
     </NuxtLink>
     <ul class="Header_Items">
-      <li
-        class="Header_Item"
-        v-for="(item, index) in items"
-        :key="index"
-        @click="item.onClick"
-      >
-        {{ item.text }}
+      <li class="Header_Item" v-for="(item, index) in items" :key="index">
+        <nuxt-link :to="item.to">{{ item.text }}</nuxt-link>
       </li>
     </ul>
   </header>
 </template>
 <script>
 export default {
-  props: {
-    items: {
-      type: Object,
-      default: () => {}
-    }
+  data() {
+    return {
+      items: {
+        signin: {
+          text: "로그인",
+          to: "login"
+        },
+        signup: {
+          text: "회원가입",
+          to: "signup"
+        }
+      }
+    };
   }
 };
 </script>

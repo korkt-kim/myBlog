@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <Header :items="headerItems" />
+    <LazyHeader />
     <v-main>
       <v-container fluid>
         <Navigation
@@ -10,7 +10,7 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <Footer />
+    <LazyFooter />
   </v-app>
 </template>
 
@@ -18,20 +18,6 @@
 export default {
   data() {
     return {
-      headerItems: {
-        signin: {
-          text: "로그인",
-          onClick: () => {
-            console.log("asdf");
-          }
-        },
-        signup: {
-          text: "회원가입",
-          onClick: () => {
-            console.log("zxcv");
-          }
-        }
-      },
       navigationItems: {
         personal: [
           { title: "프로필", icon: "mdi-view-dashboard" },
@@ -60,3 +46,9 @@ export default {
   }
 };
 </script>
+
+<style>
+:root {
+  --primary-color: #00c58e;
+}
+</style>
