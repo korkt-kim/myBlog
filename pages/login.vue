@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "~/plugins/axios";
 import { mapMutations } from "vuex";
 export default {
   layout: "auth",
@@ -30,7 +30,7 @@ export default {
     async onLogin() {
       // window.location.href = "/";
       try {
-        const res = await axios.post(`http://localhost:8080/api/auth/signin`, {
+        const res = await axios.post(`/api/auth/signin`, {
           password: this.password,
           usernameOrEmail: this.userId
         });

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "~/plugins/axios";
 import { mapMutations } from "vuex";
 export default {
   layout: "auth",
@@ -46,7 +46,7 @@ export default {
   methods: {
     async onSignup() {
       try {
-        const res = await axios.post(`http://localhost:8080/api/auth/signup`, {
+        const res = await axios.post(`/api/auth/signup`, {
           password: this.password,
           username: this.userId,
           email: this.email,
