@@ -1,35 +1,28 @@
 <template>
   <v-app dark>
-    <MessageDialog
-      :isOpened="isOpened"
-      :title="title"
-      :content="content"
-      v-on:clickOK="closeDialog"
-    ></MessageDialog>
+    <MessageDialog :isOpened="isOpened">
+      <template v-slot:title>
+        {{ title }}
+      </template>
+      <template v-slot:main>
+        {{ content }}
+      </template>
+    </MessageDialog>
+
     <Header />
     <nuxt />
   </v-app>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      dialog: false
-    };
-  },
   computed: {
-    ...mapState("dialog", {
+    ...mapState("messageDialog", {
       isOpened: state => state.isOpened,
       title: state => state.title,
       content: state => state.content
-    })
-  },
-  methods: {
-    ...mapMutations({
-      closeDialog: "dialog/closeDialog"
     })
   }
 };

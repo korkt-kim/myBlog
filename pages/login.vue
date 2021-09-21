@@ -14,6 +14,7 @@
 import { login } from "~/apis/auth";
 import { setCookie } from "~/utils/cookie";
 import { mapMutations } from "vuex";
+
 export default {
   layout: "auth",
   data() {
@@ -46,7 +47,7 @@ export default {
       }
     },
     ...mapMutations({
-      openDialog: "dialog/openDialog"
+      openDialog: "messageDialog/openDialog"
     })
   }
 };

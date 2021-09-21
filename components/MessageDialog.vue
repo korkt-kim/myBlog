@@ -2,15 +2,11 @@
   <v-dialog v-model="isOpened" persistent max-width="500">
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
-        <slot name="title">
-          {{ title }}
-        </slot>
+        <slot name="title"> </slot>
       </v-card-title>
 
       <v-card-text>
-        <slot name="main">
-          {{ content }}
-        </slot>
+        <slot name="main"> </slot>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -28,23 +24,22 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: {
     isOpened: {
       type: Boolean,
       default: false
-    },
-    title: {
-      type: String
-    },
-    content: {
-      thpe: String
     }
   },
   methods: {
     onClickOK() {
       this.$emit("clickOK");
-    }
+      this.closeDialog();
+    },
+    ...mapMutations({
+      closeDialog: "messageDialog/closeDialog"
+    })
   }
 };
 </script>

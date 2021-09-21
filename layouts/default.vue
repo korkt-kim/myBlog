@@ -1,18 +1,29 @@
 <template>
   <v-app dark>
-    <MessageDialog
-      :isOpened="isOpened"
-      :title="title"
-      :content="content"
-      v-on:clickOK="closeDialog"
-    ></MessageDialog>
+    <InputDialog
+      id="addCategory"
+      :isOpened="inputDialogOpened"
+      @onClickSubmit="closeInputDialog"
+    >
+      <template v-slot:title>
+        Add Category
+      </template>
+      <template v-slot:main>
+        <v-text-field label="category name"></v-text-field>
+      </template>
+    </InputDialog>
+    <MessageDialog :isOpened="isOpened">
+      <template v-slot:title>
+        {{ title }}
+      </template>
+      <template v-slot:main>
+        {{ content }}
+      </template>
+    </MessageDialog>
     <Header />
     <v-main>
       <v-container fluid>
-        <Navigation
-          :personal="navigationItems.personal"
-          :technical="navigationItems.technical"
-        />
+        <Navigation @onClickAddCategory="openInputDialog" />
         <Nuxt />
       </v-container>
     </v-main>
@@ -21,47 +32,52 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
+      inputDialogOpened: false,
       navigationItems: {
         personal: [
-          { title: "프로필", icon: "mdi-view-dashboard" },
-          { title: "Books" }
+          // { title: "프로필", icon: "mdi-view-dashboard" },
+          // { title: "Books" }
         ],
         technical: [
-          { title: "HTTP" },
-          { title: "HTML" },
-          { title: "JavaScript" },
-          { title: "CSS" },
-          { title: "VueJS" },
-          { title: "React" },
-          { title: "Webpack" },
-          { title: "JEST" },
-          { title: "Security&Errors" },
-          { title: "Git" },
-          { title: "Design Patterns" },
-          { title: "Regex" },
-          { title: "Spring" },
-          { title: "Browser" },
-          { title: "기타" },
-          { title: "오답노트" }
+          // { title: "HTTP" },
+          // { title: "HTML" },
+          // { title: "JavaScript" },
+          // { title: "CSS" },
+          // { title: "VueJS" },
+          // { title: "React" },
+          // { title: "Webpack" },
+          // { title: "JEST" },
+          // { title: "Security&Errors" },
+          // { title: "Git" },
+          // { title: "Design Patterns" },
+          // { title: "Regex" },
+          // { title: "Spring" },
+          // { title: "Browser" },
+          // { title: "기타" },
+          // { title: "오답노트" }
         ]
       }
     };
   },
   computed: {
-    ...mapState("dialog", {
+    ...mapState("messageDialog", {
       isOpened: state => state.isOpened,
       title: state => state.title,
       content: state => state.content
     })
   },
   methods: {
-    ...mapMutations({
-      closeDialog: "dialog/closeDialog"
-    })
+    openInputDialog() {
+      console.log("asdf");
+      this.inputDialogOpened = true;
+    },
+    closeInputDialog() {
+      this.inputDialogOpened = false;
+    }
   }
 };
 </script>

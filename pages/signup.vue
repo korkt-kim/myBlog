@@ -20,8 +20,8 @@
 
 <script>
 import { signup } from "~/apis/auth";
-
 import { mapMutations } from "vuex";
+
 export default {
   layout: "auth",
   data() {
@@ -65,7 +65,7 @@ export default {
       }
     },
     ...mapMutations({
-      openDialog: "dialog/openDialog"
+      openDialog: "messageDialog/openDialog"
     })
   }
 };
