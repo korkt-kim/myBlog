@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import axios from "~/plugins/axios";
+import { login } from "~/apis/auth";
+import { setCookie } from "~/utils/cookie";
 import { mapMutations } from "vuex";
 export default {
   layout: "auth",
@@ -28,18 +29,20 @@ export default {
   },
   methods: {
     async onLogin() {
-      // window.location.href = "/";
       try {
-        const res = await axios.post(`/api/auth/signin`, {
-          password: this.password,
-          usernameOrEmail: this.userId
-        });
+        const { tokenType, accessToken } = await login.call(
+          this,
+          this.userId,
+          this.password
+        );
+        setCookie(`accessToken`, `${tokenType} ${accessToken}`);
       } catch (e) {
         this.openDialog({
           title: "Login Failed",
-          content: e.response.data.message || e.message
+          content: e
         });
       } finally {
+        this.$router.push("/");
       }
     },
     ...mapMutations({

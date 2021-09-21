@@ -4,27 +4,34 @@
       <img class="PolzLogo" src="/polz-logo.png" />
     </NuxtLink>
     <ul class="Header_Items">
-      <li class="Header_Item" v-for="(item, index) in items" :key="index">
-        <nuxt-link :to="item.to">{{ item.text }}</nuxt-link>
+      <li v-if="!isLoggedIn" class="Header_Item">
+        <nuxt-link to="login">로그인</nuxt-link>
+      </li>
+      <li v-if="!isLoggedIn" class="Header_Item">
+        <nuxt-link to="signup">회원가입</nuxt-link>
+      </li>
+      <li @click="logOut" v-if="isLoggedIn" class="Header_Item">
+        <span>로그아웃</span>
       </li>
     </ul>
   </header>
 </template>
 <script>
+import { getCookie, delCookie } from "~/utils/cookie";
 export default {
   data() {
     return {
-      items: {
-        signin: {
-          text: "로그인",
-          to: "login"
-        },
-        signup: {
-          text: "회원가입",
-          to: "signup"
-        }
-      }
+      isLoggedIn: false
     };
+  },
+  mounted() {
+    this.isLoggedIn = !!getCookie("accessToken");
+  },
+  methods: {
+    logOut() {
+      delCookie("accessToken");
+      this.isLoggedIn = false;
+    }
   }
 };
 </script>

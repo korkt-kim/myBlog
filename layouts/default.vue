@@ -1,6 +1,12 @@
 <template>
   <v-app dark>
-    <LazyHeader />
+    <MessageDialog
+      :isOpened="isOpened"
+      :title="title"
+      :content="content"
+      v-on:clickOK="closeDialog"
+    ></MessageDialog>
+    <Header />
     <v-main>
       <v-container fluid>
         <Navigation
@@ -15,6 +21,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -43,6 +50,18 @@ export default {
         ]
       }
     };
+  },
+  computed: {
+    ...mapState("dialog", {
+      isOpened: state => state.isOpened,
+      title: state => state.title,
+      content: state => state.content
+    })
+  },
+  methods: {
+    ...mapMutations({
+      closeDialog: "dialog/closeDialog"
+    })
   }
 };
 </script>

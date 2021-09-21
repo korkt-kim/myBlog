@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import axios from "~/plugins/axios";
+import { signup } from "~/apis/auth";
+
 import { mapMutations } from "vuex";
 export default {
   layout: "auth",
@@ -46,29 +47,21 @@ export default {
   methods: {
     async onSignup() {
       try {
-        const res = await axios.post(`/api/auth/signup`, {
-          password: this.password,
-          username: this.userId,
-          email: this.email,
-          firstName: this.firstName,
-          lastName: this.lastName
-        });
-        console.log(res);
+        await signup.call(
+          this,
+          this.userId,
+          this.password,
+          this.email,
+          this.firstName,
+          this.lastName
+        );
       } catch (e) {
-        console.log(e);
-        console.log(e.data);
-        console.log(e.status);
-        console.log(e.res);
-        console.log(e.response);
-        for (let key in e) {
-          console.log(key);
-        }
-        // console.log(e.)
         this.openDialog({
           title: "Signup Failed",
-          content: e.response.data.message || e.message
+          content: e
         });
       } finally {
+        this.$router.push("/");
       }
     },
     ...mapMutations({
