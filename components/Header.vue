@@ -1,36 +1,65 @@
 <template>
-  <header class="Header">
-    <NuxtLink to="/">
-      <img class="PolzLogo" src="/polz-logo.png" />
-    </NuxtLink>
-    <ul class="Header_Items">
-      <li v-if="!isLoggedIn" class="Header_Item">
-        <nuxt-link to="login">로그인</nuxt-link>
-      </li>
-      <li v-if="!isLoggedIn" class="Header_Item">
-        <nuxt-link to="signup">회원가입</nuxt-link>
-      </li>
-      <li @click="logOut" v-if="isLoggedIn" class="Header_Item">
-        <span>로그아웃</span>
-      </li>
-    </ul>
-  </header>
+  <v-app-bar 
+      color="deep-grey accent-4"
+      dark
+      max-height="70"
+  >
+    <v-toolbar-title>
+      <NuxtLink to="/" style="text-align: center;">
+        <img class="PolzLogo" src="/polz-logo.png" />
+      </NuxtLink>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <div v-if="!$auth.loggedIn" class="Header_Item">
+      <v-btn to="login">로그인</v-btn>
+    </div>
+    <v-menu v-else offset-y v-model="showUserMenu" style="max-width: 100px">
+      <template v-slot:activator="{ on, attrs }">
+        <v-img
+              :src="picture"
+              class="rounded-circle"
+              max-width="50"
+              max-height="50"
+              v-bind="attrs"
+              v-on="on"
+              style="cursor:pointer"
+            />
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in userMenuItems"
+          :key="index"
+          @click="item.action"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </v-app-bar>
 </template>
 <script>
-import { getCookie, delCookie } from "~/utils/cookie";
+import get from 'lodash.get'
 export default {
   data() {
     return {
-      isLoggedIn: false
+      showUserMenu:false,
+      userMenuItems: [
+        { title: '로그아웃',action: ()=>this.$auth.logout()},
+      ],
     };
   },
-  mounted() {
-    this.isLoggedIn = !!getCookie("accessToken");
+  computed: {
+    picture() {
+      return (
+        get(this.$auth.user, 'picture')  // OpenID
+        // get(this.$auth.user, 'picture.data.url') || // Facebook graph API
+        // get(this.$auth.user, 'avatar_url')
+      ) // GitHub
+    }
   },
   methods: {
-    logOut() {
-      delCookie("accessToken");
-      this.isLoggedIn = false;
+    logout() {
+      return this.$auth.logout();
     }
   }
 };

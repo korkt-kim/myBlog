@@ -5,7 +5,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "%s - blog",
-    title: "blog",
+    title: "polz's blog",
     htmlAttrs: {
       lang: "en"
     },
@@ -13,7 +13,19 @@ export default {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" }
+      { name: "format-detection", content: "telephone=no" },
+      {
+        name: "google-signin-client_id",
+        content:
+          "884171338892-2i1nb7cakj8e0g0k5r3s1o9dhlr5oebe.apps.googleusercontent.com"
+      }
+    ],
+    script: [
+      {
+        src: "https://apis.google.com/js/platform.js",
+        async: true,
+        defer: true
+      }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
@@ -36,7 +48,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "cookie-universal-nuxt"],
+  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "@nuxtjs/auth-next"],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -61,6 +73,42 @@ export default {
     baseUrl: process.env.BASE_URL || `http://localhost:8080`
   },
 
+  auth: {
+    redirect: {
+      callback: "/callback",
+      logout: "/logout"
+    },
+    strategies: {
+      google: {
+        // endpoints: {
+        //   userInfo: '/api/auth/user',
+        //   // logout: { url: '/api/auth/logout', method: 'get', withCredentials: true },
+        // },
+        // token: {
+        //   property: "access_token",
+        //   type: "Bearer",
+        //   maxAge: 1800
+        // },
+        // refreshToken: {
+        //   property: "refresh_token",
+        //   maxAge: 60 * 60 * 24 * 30
+        // },
+        responseType: "token id_token",
+        // grantType: "authorization_code",
+        // accessType: undefined,
+        // redirectUri: undefined,
+        clientId:
+          "884171338892-2i1nb7cakj8e0g0k5r3s1o9dhlr5oebe.apps.googleusercontent.com",
+        grantType: 'authorization_code',
+        // scope: ["profile", "email"],
+        // state: "UNIQUE_AND_NON_GUESSABLE",
+        codeChallengeMethod: ""
+        // responseMode: "",
+        // acrValues: ""
+        // autoLogout: false
+      }
+    }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 };

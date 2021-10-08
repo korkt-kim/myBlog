@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="isOpened" persistent max-width="500">
+  <v-dialog
+    v-model="isOpened"
+    persistent
+    max-width="500"
+    @click:outside="closeDialog"
+  >
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
         <slot name="title"> </slot>
@@ -30,6 +35,9 @@ export default {
   methods: {
     onClickSubmit() {
       this.$emit("onClickSubmit");
+    },
+    closeDialog() {
+      this.$emit("onClickOutside");
     }
   }
 };

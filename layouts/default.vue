@@ -4,6 +4,7 @@
       id="addCategory"
       :isOpened="inputDialogOpened"
       @onClickSubmit="closeInputDialog"
+      @onClickOutside="closeInputDialog"
     >
       <template v-slot:title>
         Add Category
@@ -70,14 +71,15 @@ export default {
       content: state => state.content
     })
   },
+  mounted() {},
   methods: {
     openInputDialog() {
-      console.log("asdf");
       this.inputDialogOpened = true;
     },
     closeInputDialog() {
       this.inputDialogOpened = false;
-    }
+    },
+    makeCategory() {}
   }
 };
 </script>

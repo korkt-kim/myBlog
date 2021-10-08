@@ -1,55 +1,18 @@
 <template>
   <div>
-    <form v-on:submit.prevent="onLogin">
-      <label for="userId">UserId</label>
-      <input v-model="userId" type="text" id="userId" />
-      <label for="password">Password</label>
-      <input v-model="password" type="password" id="password" />
-      <button class="button" :disabled="isButtonDisabled">Login</button>
-    </form>
+    <button class="g-signin2" @click="()=>$auth.loginWith('google')"></button>
   </div>
 </template>
 
 <script>
-import { login } from "~/apis/auth";
-import { setCookie } from "~/utils/cookie";
-import { mapMutations } from "vuex";
-
 export default {
   layout: "auth",
-  data() {
-    return {
-      userId: "",
-      password: ""
-    };
+  head: {
+    title: "polz's blog",
+    meta: []
   },
-  computed: {
-    isButtonDisabled() {
-      return !(this.userId && this.userId);
-    }
-  },
-  methods: {
-    async onLogin() {
-      try {
-        const { tokenType, accessToken } = await login.call(
-          this,
-          this.userId,
-          this.password
-        );
-        setCookie(`accessToken`, `${tokenType} ${accessToken}`);
-      } catch (e) {
-        this.openDialog({
-          title: "Login Failed",
-          content: e
-        });
-      } finally {
-        this.$router.push("/");
-      }
-    },
-    ...mapMutations({
-      openDialog: "messageDialog/openDialog"
-    })
-  }
+  data() {},
+  computed: {},
 };
 </script>
 
