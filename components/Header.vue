@@ -3,6 +3,9 @@
       color="deep-grey accent-4"
       dark
       max-height="70"
+      app
+      clipped-left
+      flat
   >
     <v-toolbar-title>
       <NuxtLink to="/" style="text-align: center;">

@@ -10,7 +10,9 @@
     </MessageDialog>
 
     <Header />
-    <nuxt />
+    <v-main>
+      <Nuxt />
+    </v-main>
   </v-app>
 </template>
 

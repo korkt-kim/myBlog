@@ -11,7 +11,6 @@ export default {
     title: "polz's blog",
     meta: []
   },
-  data() {},
   computed: {},
 };
 </script>

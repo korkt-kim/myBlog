@@ -70,42 +70,23 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL || `http://localhost:8080`
+    baseUrl: process.env.BASE_URL || `http://localhost:8080`,
   },
 
   auth: {
     redirect: {
+      login:'/login',
       callback: "/callback",
-      logout: "/logout"
+      logout: "/logout",
+      home:'/'
     },
     strategies: {
       google: {
-        // endpoints: {
-        //   userInfo: '/api/auth/user',
-        //   // logout: { url: '/api/auth/logout', method: 'get', withCredentials: true },
-        // },
-        // token: {
-        //   property: "access_token",
-        //   type: "Bearer",
-        //   maxAge: 1800
-        // },
-        // refreshToken: {
-        //   property: "refresh_token",
-        //   maxAge: 60 * 60 * 24 * 30
-        // },
         responseType: "token id_token",
-        // grantType: "authorization_code",
-        // accessType: undefined,
-        // redirectUri: undefined,
         clientId:
           "884171338892-2i1nb7cakj8e0g0k5r3s1o9dhlr5oebe.apps.googleusercontent.com",
         grantType: 'authorization_code',
-        // scope: ["profile", "email"],
-        // state: "UNIQUE_AND_NON_GUESSABLE",
         codeChallengeMethod: ""
-        // responseMode: "",
-        // acrValues: ""
-        // autoLogout: false
       }
     }
   },

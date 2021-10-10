@@ -22,10 +22,10 @@
       </template>
     </MessageDialog>
     <Header />
+    <Navigation @onClickAddCategory="openInputDialog" />
     <v-main>
       <v-container fluid>
-        <Navigation @onClickAddCategory="openInputDialog" />
-        <Nuxt />
+        <Nuxt />   
       </v-container>
     </v-main>
     <LazyFooter />
@@ -71,7 +71,6 @@ export default {
       content: state => state.content
     })
   },
-  mounted() {},
   methods: {
     openInputDialog() {
       this.inputDialogOpened = true;
@@ -84,7 +83,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 :root {
   --primary-color: #00c58e;
 }

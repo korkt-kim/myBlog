@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer permanent absolute>
+  <v-navigation-drawer app dark clipped flat>
     <v-list dense nav>
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-content>
