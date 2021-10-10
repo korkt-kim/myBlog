@@ -11,7 +11,6 @@ export default {
     setTimeout(()=>{
       this.$router.push('/');
     },1000)
-    
   }
 };
 </script>

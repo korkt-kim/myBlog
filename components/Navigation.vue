@@ -7,10 +7,10 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <template v-slot:append>
+    <template v-if="isAdmin" v-slot:append>
       <div class="pa-2">
-        <v-btn block @click="onClickAddCategory">
-          add category
+        <v-btn block @click="onClickAddPost">
+          {{title}}
         </v-btn>
       </div>
     </template>
@@ -22,11 +22,19 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    title: {
+      type: String
     }
   },
+  computed:{
+    isAdmin(){
+      return this.$store.$auth.$state.user?.role=='ADMIN'
+    },
+  },
   methods: {
-    onClickAddCategory() {
-      this.$emit("onClickAddCategory");
+    onClickAddPost() {
+      this.$emit("onClickAddPost");
     }
   }
 };

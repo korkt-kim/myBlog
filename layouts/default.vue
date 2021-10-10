@@ -1,18 +1,5 @@
 <template>
   <v-app dark>
-    <InputDialog
-      id="addCategory"
-      :isOpened="inputDialogOpened"
-      @onClickSubmit="closeInputDialog"
-      @onClickOutside="closeInputDialog"
-    >
-      <template v-slot:title>
-        Add Category
-      </template>
-      <template v-slot:main>
-        <v-text-field label="category name"></v-text-field>
-      </template>
-    </InputDialog>
     <MessageDialog :isOpened="isOpened">
       <template v-slot:title>
         {{ title }}
@@ -22,7 +9,7 @@
       </template>
     </MessageDialog>
     <Header />
-    <Navigation @onClickAddCategory="openInputDialog" />
+    <Navigation @onClickAddPost="routeToPost" title="add post" :items="navigationItems"/>
     <v-main>
       <v-container fluid>
         <Nuxt />   
@@ -37,31 +24,9 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      inputDialogOpened: false,
-      navigationItems: {
-        personal: [
-          // { title: "프로필", icon: "mdi-view-dashboard" },
-          // { title: "Books" }
-        ],
-        technical: [
-          // { title: "HTTP" },
-          // { title: "HTML" },
-          // { title: "JavaScript" },
-          // { title: "CSS" },
-          // { title: "VueJS" },
-          // { title: "React" },
-          // { title: "Webpack" },
-          // { title: "JEST" },
-          // { title: "Security&Errors" },
-          // { title: "Git" },
-          // { title: "Design Patterns" },
-          // { title: "Regex" },
-          // { title: "Spring" },
-          // { title: "Browser" },
-          // { title: "기타" },
-          // { title: "오답노트" }
-        ]
-      }
+      navigationItems: [
+
+      ]
     };
   },
   computed: {
@@ -71,14 +36,12 @@ export default {
       content: state => state.content
     })
   },
+  mounted(){
+  },
   methods: {
-    openInputDialog() {
+    routeToPost() {
       this.inputDialogOpened = true;
     },
-    closeInputDialog() {
-      this.inputDialogOpened = false;
-    },
-    makeCategory() {}
   }
 };
 </script>

@@ -34,8 +34,9 @@ export default {
   css: ["~/assets/header.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["~/plugins/axios.js"],
+  plugins: [],
 
+  middleware: ['auth'],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -48,7 +49,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "@nuxtjs/auth-next"],
+  modules: ["@nuxtjs/dotenv", "@nuxtjs/axios", "@nuxtjs/auth-next"],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -70,10 +71,11 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL || `http://localhost:8080`,
+    baseUrl: process.env.BASE_URL || `http://localhost:8080`
   },
 
   auth: {
+    plugins: [ { src: '~/plugins/axios', ssr: true }, {src:'~/middleware/auth','srr':true}],
     redirect: {
       login:'/login',
       callback: "/callback",
@@ -86,7 +88,8 @@ export default {
         clientId:
           "884171338892-2i1nb7cakj8e0g0k5r3s1o9dhlr5oebe.apps.googleusercontent.com",
         grantType: 'authorization_code',
-        codeChallengeMethod: ""
+        codeChallengeMethod: "",
+        scope: ['openid','profile', 'email',`https://www.googleapis.com/auth/blogger` ,`https://www.googleapis.com/auth/blogger.readonly`]
       }
     }
   },

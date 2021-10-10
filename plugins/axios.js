@@ -1,9 +1,10 @@
 //create new axios instance
-export default function({ $axios, redirect, app }, inject) {
+// add authorization on header when request, if has token in storage
+export default function({ $axios,$auth, app }, inject) {
   const axios = $axios.create({});
   axios.setBaseURL(process.env.baseUrl);
   axios.onRequest(config => {
-    const token = app.store.state.accessToken || "";
+    const token = $auth.strategy.token.get() || "";
     if (token) {
       if (config.method !== "OPTIONS") {
         config.headers.Authorization = `${token}`;
