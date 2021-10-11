@@ -9,10 +9,10 @@
       </template>
     </MessageDialog>
     <Header />
-    <Navigation :items="navigationItems">
+    <Navigation :items="navigationItems" @onClickItem="navigateToPostList">
       <template v-slot:bottom>
         <div class="pa-2" v-if="isAdmin" >
-          <v-btn block @click="routeToPost">
+          <v-btn block @click="navigateToPost">
             add post
           </v-btn>
         </div>
@@ -35,7 +35,7 @@ export default {
   async fetch(){
     const res = await getAllPosts({$axios:this.$axios});
     this.navigationItems = res.reduce((acc,item)=>{
-      acc = Array.from(new Set([...acc,...item.labels]));
+      acc = Array.from(new Set([...acc,...(item.labels||[])]));
       return acc
     },[])
   },
@@ -55,15 +55,14 @@ export default {
     })
   },
   mounted(){
-    console.log(this.navigationItems)
   },
   methods: {
-    routeToPost() {
+    navigateToPost() {
       alert("asdf")
       this.inputDialogOpened = true;
     },
-    asdf(res){
-      console.log(res)
+    navigateToPostList(item){
+      this.$router.push(`/postlist/${item}`)
     }
   }
 };

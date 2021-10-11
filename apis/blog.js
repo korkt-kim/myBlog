@@ -19,7 +19,7 @@ export async function getPost({$axios}, postId){
     return {title,content,replies};
 }
 
-export async function getPostsByCategory({$axios},category){
-    const {data:{items}} =await $axios.get(`https://www.googleapis.com/blogger/v3/blogs/${process.env.BLOG_ID}/posts?labels=${category}&key=${process.env.API_KEY}`)
-    return items;
+export async function getPostsByCategory({$axios},category,pageToken=null){
+    const {data:{items,nextPageToken}} =await $axios.get(`https://www.googleapis.com/blogger/v3/blogs/${process.env.BLOG_ID}/posts?labels=${category}&${pageToken? `pageToken=${pageToken}`:``}&key=${process.env.API_KEY}`)
+    return {items,nextPageToken};
 }
