@@ -9,7 +9,15 @@
       </template>
     </MessageDialog>
     <Header />
-    <Navigation @onClickAddPost="routeToPost" title="add post" :items="navigationItems"/>
+    <Navigation :items="navigationItems">
+      <template v-slot:bottom>
+        <div class="pa-2" v-if="isAdmin" >
+          <v-btn block @click="routeToPost">
+            add post
+          </v-btn>
+        </div>
+      </template>
+    </Navigation>
     <v-main>
       <v-container fluid>
         <Nuxt />   
@@ -21,15 +29,25 @@
 
 <script>
 import { mapState } from "vuex";
+import {getAllPosts} from "~/apis/blog"
+
 export default {
+  async fetch(){
+    const res = await getAllPosts({$axios:this.$axios});
+    this.navigationItems = res.reduce((acc,item)=>{
+      acc = Array.from(new Set([...acc,...item.labels]));
+      return acc
+    },[])
+  },
   data() {
     return {
-      navigationItems: [
-
-      ]
+      navigationItems: []
     };
   },
   computed: {
+    isAdmin(){
+      return this.$store.$auth.$state.user?.role=='ADMIN'
+    },
     ...mapState("messageDialog", {
       isOpened: state => state.isOpened,
       title: state => state.title,
@@ -37,11 +55,16 @@ export default {
     })
   },
   mounted(){
+    console.log(this.navigationItems)
   },
   methods: {
     routeToPost() {
+      alert("asdf")
       this.inputDialogOpened = true;
     },
+    asdf(res){
+      console.log(res)
+    }
   }
 };
 </script>
