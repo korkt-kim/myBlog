@@ -13,10 +13,15 @@
       </NuxtLink>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <div v-if="!$auth.loggedIn" class="Header_Item">
+    <div v-if="!$localAuth.isAuthenticated" class="Header_Item">
       <v-btn to="login">로그인</v-btn>
+      <v-btn to="register">회원가입</v-btn>
     </div>
-    <v-menu v-else offset-y v-model="showUserMenu" style="max-width: 100px">
+    <div v-else>
+      {{$localAuth.email}}
+      <v-btn @click="$store.dispatch('localAuth/logout')">로그아웃</v-btn>
+    </div>
+    <!-- <v-menu v-else offset-y v-model="showUserMenu" style="max-width: 100px">
       <template v-slot:activator="{ on, attrs }">
         <v-img
               :src="picture"
@@ -37,7 +42,7 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
   </v-app-bar>
 </template>
 <script>

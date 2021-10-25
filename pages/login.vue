@@ -1,22 +1,61 @@
 <template>
-  <div>
+  <div id="register">
+    <div>
+      <div >
+        <h1 >Login</h1>
+      </div>
+      <!-- Unauthenticated -->
+      <div v-if="!$localAuth.isAuthenticated">
+        <form @submit.prevent="login">
+          <input v-model="loginForm.email" type="email" placeholder="Email" class="form-control"/>
+          <input v-model="loginForm.password" type="password" placeholder="Password" class="from-control"/>
+          <button type="submit" class="button--green">Login</button>
+        </form>
+        <nuxt-link to="register">Need an account? Register</nuxt-link>
+      </div>
+
+      <!-- Authenticated -->
+      <div v-else>
+        You're logged in as {{$localAuth.email}}
+        <button @click="$store.dispatch('localAuth/logout')">Logout</button>
+      </div>
+    </div>
     <button class="g-signin2" @click="()=>$auth.loginWith('google')"></button>
   </div>
 </template>
 
 <script>
+
 export default {
   layout: "auth",
   head: {
     title: "polz's blog",
     meta: []
   },
+  data: () =>{
+    return{
+      loginForm:{
+        email:'',
+        password:''
+      },
+    }
+  },
   computed: {},
+  methods:{
+    async login(){
+      try{
+        await this.$store.dispatch('localAuth/login',this.loginForm);
+        this.$router.push('/')
+      }catch(e){
+        console.log(e);
+      }
+    }
+  }
 };
 </script>
 
 <style scoped>
-div {
+div#register{
   height: 100%;
   display: flex;
   justify-content: center;

@@ -15,7 +15,7 @@ export const mutations = {
 export const actions = {
     async load({commit}){
         try{
-            const user = await Auth.currentAuthenticatedUser();
+            const user = await Auth.currentSession();
             commit('set',user);
         }catch(e){
             commit('set',null);
@@ -37,7 +37,7 @@ export const actions = {
     async login({commit},{email,password}){
         const user=  await Auth.signIn(email,password);
 
-        commit('set',user);
+        commit('set',{...user});
         return user;
     },
 
