@@ -1,15 +1,15 @@
 <template>
   <v-app dark>
-    <MessageDialog :isOpened="isOpened">
+    <!-- <MessageDialog :isOpened="isOpened">
       <template v-slot:title>
         {{ title }}
       </template>
       <template v-slot:main>
         {{ content }}
       </template>
-    </MessageDialog>
+    </MessageDialog> -->
     <Header />
-    <Navigation :items="navigationItems" @onClickItem="navigateToPostList">
+    <!-- <Navigation :items="navigationItems" @onClickItem="navigateToPostList">
       <template v-slot:bottom>
         <div class="pa-2" v-if="isAdmin" >
           <v-btn block @click="navigateToPost">
@@ -17,13 +17,13 @@
           </v-btn>
         </div>
       </template>
-    </Navigation>
+    </Navigation> -->
     <v-main>
       <v-container fluid>
         <Nuxt />   
       </v-container>
     </v-main>
-    <LazyFooter />
+    <!-- <LazyFooter /> -->
   </v-app>
 </template>
 
@@ -33,11 +33,8 @@ import {getAllPosts} from "~/apis/blog"
 
 export default {
   async fetch(){
-    const res = await getAllPosts({$axios:this.$axios});
-    this.navigationItems = res.reduce((acc,item)=>{
-      acc = Array.from(new Set([...acc,...(item.labels||[])]));
-      return acc
-    },[])
+    // const res = await getAllPosts({$axios:this.$axios});
+    this.navigationItems = []
   },
   data() {
     return {
