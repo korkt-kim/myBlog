@@ -34,7 +34,7 @@ export default {
   css: ["~/assets/header.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{src:'~/plugins/amplify.js',mode:'client'},{src:'~/plugins/auth'}],
+  plugins: [{src:'~/plugins/amplify.js'},{src:'~/plugins/auth'}],
 
   middleware: ['auth'],
   // Auto import components: https://go.nuxtjs.dev/config-components

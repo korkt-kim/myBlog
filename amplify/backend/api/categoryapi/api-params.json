@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/blog/categories",
+      "lambdaFunction": "getCategories",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/blog/categories"
+    }
+  ],
+  "resourceName": "categoryapi",
+  "apiName": "categoryapi",
+  "functionArns": [
+    {
+      "lambdaFunction": "getCategories"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-blogfront-dev-213828-authRole",
+    "unAuthRoleName": "amplify-blogfront-dev-213828-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "getCategories",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

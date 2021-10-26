@@ -29,12 +29,11 @@
 
 <script>
 import { mapState } from "vuex";
-import {getAllPosts} from "~/apis/blog"
+import {API} from "aws-amplify"
 
 export default {
   async fetch(){
-    // const res = await getAllPosts({$axios:this.$axios});
-    this.navigationItems = []
+    
   },
   data() {
     return {
@@ -51,7 +50,10 @@ export default {
       content: state => state.content
     })
   },
-  mounted(){
+  async mounted(){
+    const {categories} = await API.get('categoryapi','/blog/categories')
+    this.navigationItems = categories;
+    console.log(categories)
   },
   methods: {
     navigateToPost() {
