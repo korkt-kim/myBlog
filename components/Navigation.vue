@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer app dark clipped flat>
-    <v-list dense nav>
+    <v-list nav>
       <v-list-item v-for="item in items" :key="item" link>
         <v-list-item-content @click="()=>$emit('onClickItem',item)">
           <v-list-item-title>{{ item }}</v-list-item-title>
