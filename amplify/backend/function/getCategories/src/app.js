@@ -1,4 +1,18 @@
 /*
+Use the following code to retrieve configured secrets from SSM:
+
+const aws = require('aws-sdk');
+
+const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: ["apiKey","blogId"].map(secretName => process.env[secretName]),
+    WithDecryption: true,
+  })
+  .promise();
+
+Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
+*/
+/*
 Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
     http://aws.amazon.com/apache2.0/
@@ -8,7 +22,7 @@ See the License for the specific language governing permissions and limitations 
 
 
 
-
+const aws = require('aws-sdk');
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
@@ -27,7 +41,14 @@ app.use(function(req, res, next) {
 });
 
 app.get('/blog/categories',async (req,res)=>{
-  const reponse = await axios.get(`https://www.blogger.com/feeds/5210420534154293578/posts/summary?alt=json`)
+  const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: [process.env.blogId],
+    WithDecryption: true,
+  })
+  .promise();
+  
+  const reponse = await axios.get(`https://www.blogger.com/feeds/${Parameters[0].Value}/posts/summary?alt=json`)
   res.json({categories : reponse.data.feed.category.map(item=>item.term)})
 })
 

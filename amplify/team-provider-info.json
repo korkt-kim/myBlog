@@ -18,7 +18,8 @@
       "function": {
         "getCategories": {
           "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/getCategories-706b7037443574334558-build.zip"
+          "s3Key": "amplify-builds/getCategories-7766346c4d586d716948-build.zip",
+          "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
         }
       },
       "hosting": {

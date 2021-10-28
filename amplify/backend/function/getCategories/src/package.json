@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.1016.0",
     "aws-serverless-express": "^3.3.5",
     "axios": "^0.24.0",
     "body-parser": "^1.17.1",
