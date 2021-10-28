@@ -1,0 +1,44 @@
+{
+    "paths": [
+        {
+            "name": "/blog/post/{postId}",
+            "lambdaFunction": "blogger",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/blog/post/*"
+        },
+        {
+            "name": "/blog/categories",
+            "lambdaFunction": "blogger",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/blog/categories"
+        }
+    ],
+    "resourceName": "bloggerapi",
+    "apiName": "bloggerapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "blogger"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-blogfront-dev-213828-authRole",
+        "unAuthRoleName": "amplify-blogfront-dev-213828-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "blogger",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "85217264"
+}

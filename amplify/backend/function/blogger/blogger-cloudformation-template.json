@@ -50,12 +50,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "getCategories",
+            "blogger",
             {
               "Fn::Join": [
                 "",
                 [
-                  "getCategories",
+                  "blogger",
                   "-",
                   {
                     "Ref": "env"
@@ -73,7 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "apiKey": {
+            "BLOG_ID": {
               "Fn::Join": [
                 "",
                 [
@@ -87,15 +87,15 @@
                         "env": {
                           "Ref": "env"
                         },
-                        "functionName": "getCategories"
+                        "functionName": "blogger"
                       }
                     ]
                   },
-                  "apiKey"
+                  "BLOG_ID"
                 ]
               ]
             },
-            "blogId": {
+            "API_KEY": {
               "Fn::Join": [
                 "",
                 [
@@ -109,11 +109,11 @@
                         "env": {
                           "Ref": "env"
                         },
-                        "functionName": "getCategories"
+                        "functionName": "blogger"
                       }
                     ]
                   },
-                  "blogId"
+                  "API_KEY"
                 ]
               ]
             }
@@ -136,12 +136,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "blogfrontLambdaRole4f59c30f",
+            "blogfrontLambdaRole1e5d6117",
             {
               "Fn::Join": [
                 "",
                 [
-                  "blogfrontLambdaRole4f59c30f",
+                  "blogfrontLambdaRole1e5d6117",
                   "-",
                   {
                     "Ref": "env"
@@ -253,7 +253,7 @@
                           "env": {
                             "Ref": "env"
                           },
-                          "functionName": "getCategories"
+                          "functionName": "blogger"
                         }
                       ]
                     },

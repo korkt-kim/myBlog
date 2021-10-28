@@ -15,17 +15,17 @@
       "auth": {
         "blogfrontfd070da2": {}
       },
-      "function": {
-        "getCategories": {
-          "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/getCategories-7766346c4d586d716948-build.zip",
-          "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
-        }
-      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d14c4eovpg3bl6",
           "type": "cicd"
+        }
+      },
+      "function": {
+        "blogger": {
+          "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
+          "s3Key": "amplify-builds/blogger-5442356a566265646367-build.zip",
+          "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
         }
       }
     }

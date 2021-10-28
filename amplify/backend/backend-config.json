@@ -27,20 +27,20 @@
     }
   },
   "function": {
-    "getCategories": {
+    "blogger": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "categoryapi": {
+    "bloggerapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "getCategories",
+          "resourceName": "blogger",
           "attributes": [
             "Name",
             "Arn"

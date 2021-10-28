@@ -1,0 +1,7 @@
+{
+  "lambdaLayers": [],
+  "secretNames": [
+    "BLOG_ID",
+    "API_KEY"
+  ]
+}

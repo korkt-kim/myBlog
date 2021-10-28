@@ -1,8 +1,0 @@
-{
-  "lambdaLayers": [],
-  "environmentVariableList": [],
-  "secretNames": [
-    "apiKey",
-    "blogId"
-  ]
-}

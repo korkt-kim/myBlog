@@ -24,7 +24,7 @@ import {API} from "aws-amplify"
 
 export default {
   async fetch() {
-    const {categories} = await API.get('categoryapi','/blog/categories')
+    const {categories} = await API.get('bloggerapi','/blog/categories')
     this.navigationItems = categories;
   },
   data() {
