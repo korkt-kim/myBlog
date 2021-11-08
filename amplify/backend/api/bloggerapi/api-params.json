@@ -1,20 +1,28 @@
 {
     "paths": [
         {
+            "name": "/blog/category",
+            "lambdaFunction": "blogger",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/blog/category"
+        },
+        {
+            "name": "/blog/{categoryId}/post",
+            "lambdaFunction": "blogger",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/blog/*/post"
+        },
+        {
             "name": "/blog/post/{postId}",
             "lambdaFunction": "blogger",
             "privacy": {
                 "open": true
             },
             "policyResourceName": "/blog/post/*"
-        },
-        {
-            "name": "/blog/categories",
-            "lambdaFunction": "blogger",
-            "privacy": {
-                "open": true
-            },
-            "policyResourceName": "/blog/categories"
         }
     ],
     "resourceName": "bloggerapi",
@@ -40,5 +48,5 @@
             ]
         }
     ],
-    "uuid": "85217264"
+    "uuid": "0ae5de39"
 }

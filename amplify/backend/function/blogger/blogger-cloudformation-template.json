@@ -73,7 +73,7 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "BLOG_ID": {
+            "ACCESS_TOKEN": {
               "Fn::Join": [
                 "",
                 [
@@ -91,29 +91,7 @@
                       }
                     ]
                   },
-                  "BLOG_ID"
-                ]
-              ]
-            },
-            "API_KEY": {
-              "Fn::Join": [
-                "",
-                [
-                  {
-                    "Fn::Sub": [
-                      "/amplify/${appId}/${env}/AMPLIFY_${functionName}_",
-                      {
-                        "appId": {
-                          "Ref": "secretsPathAmplifyAppId"
-                        },
-                        "env": {
-                          "Ref": "env"
-                        },
-                        "functionName": "blogger"
-                      }
-                    ]
-                  },
-                  "API_KEY"
+                  "ACCESS_TOKEN"
                 ]
               ]
             }

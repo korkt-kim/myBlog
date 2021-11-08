@@ -5,7 +5,7 @@ const aws = require('aws-sdk');
 
 const { Parameters } = await (new aws.SSM())
   .getParameters({
-    Names: ["BLOG_ID","API_KEY"].map(secretName => process.env[secretName]),
+    Names: ["ACCESS_TOKEN"].map(secretName => process.env[secretName]),
     WithDecryption: true,
   })
   .promise();
@@ -41,30 +41,65 @@ app.use(function(req, res, next) {
   next()
 });
 
-app.get('/blog/categories',async (req,res)=>{
-  const { Parameters } = await (new aws.SSM())
-  .getParameters({
-    Names: [process.env.BLOG_ID],
-    WithDecryption: true,
+//카테고리 읽기
+app.get('/blog/category', async(req,res)=>{
+  const {Parameter} = await (new aws.SSM()).getParameter({
+    Name:process.env.ACCESS_TOKEN,
+    WithDecryption: true
   })
   .promise();
-  const reponse = await axios.get(`https://www.blogger.com/feeds/${Parameters[0].Value}/posts/summary?alt=json`)
-  res.json({categories : reponse.data.feed.category.map(item=>item.term)})
+
+  const {data:{tistory:{item:{categories}}}} = await axios.get(`https://www.tistory.com/apis/category/list?access_token=${Parameter.Value}&output=json&blogName=zakelstorm`)
+  res.json(categories)
 })
 
+//글 목록
+app.get('/blog/:categoryId/post',async (req,res)=>{
+  const {categoryId} = req.params;
+  const {page} = req.query;
+
+   const {Parameter} = await (new aws.SSM()).getParameter({
+    Name:process.env.ACCESS_TOKEN,
+    WithDecryption: true
+  })
+  .promise();
+  const {data:{tistory:{item:{count,totalCount,posts}}}} = await axios.get(`https://www.tistory.com/apis/post/list?access_token=${Parameter.Value}&categoryId=${categoryId}&output=json&blogName=zakelstorm&page=${page}`)
+  res.json({count,totalCount,posts})
+})
+
+//글 읽기
 app.get('/blog/post/:postId',async (req,res)=>{
   const {postId} = req.params;
 
-  const { Parameters } = await (new aws.SSM())
-  .getParameters({
-    Names: ['API_KEY','BLOG_ID'].map(item=>process.env[item]),
-    WithDecryption: true,
+  const {Parameter} = await (new aws.SSM()).getParameter({
+    Name:process.env.ACCESS_TOKEN,
+    WithDecryption: true
   })
   .promise();
-  const {data:{title,content,replies}} = await axios.get(`https://www.googleapis.com/blogger/v3/blogs/${Parameters[1].Value}/posts/${postId}?key=${Parameters[0].Value}`);
-  res.json({title,content,replies})
+
+  const {data:{tistory:{item:{title,content,categoryId,visibility,tags,date}}}} = await axios.get(`https://www.tistory.com/apis/post/read?access_token=${Parameter.Value}&blogName=zakelstorm&postId=${postId}&output=json`);
+  res.json({title,content,categoryId,visibility,tags,date})
 })
 
+//글작성
+app.post(`blog/post`,async (req,res)=>{
+  const {title,content,visibility,categoryId,published,tag} = req.body
+
+  const {Parameter} = await (new aws.SSM()).getParameter({
+    Name:process.env.ACCESS_TOKEN,
+    WithDecryption: true
+  })
+  .promise();
+
+  const {data:{tistory:{status,postId,url}}} = await axios.get(`https://www.tistory.com/apis/post/write?access_token=${Parameter.Value}&output=json&blogName=zakelstorm
+  &title=${title}
+  &content=${content}
+  &visibility=${visibility}
+  &category=${categoryId}
+  &published=${published}
+  &tag=${tag}`);
+  res.json({status,postId,url})
+})
 
 
 /**********************

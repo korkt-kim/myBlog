@@ -1,7 +1,6 @@
 {
   "lambdaLayers": [],
   "secretNames": [
-    "BLOG_ID",
-    "API_KEY"
+    "ACCESS_TOKEN"
   ]
 }

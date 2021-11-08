@@ -24,8 +24,8 @@ import {API} from "aws-amplify"
 
 export default {
   async fetch() {
-    const {categories} = await API.get('bloggerapi','/blog/categories')
-    this.navigationItems = categories;
+    const categories = await API.get('bloggerapi','/blog/category')
+    this.navigationItems = categories.map(item=>item.name);
   },
   data() {
     return {
@@ -36,11 +36,9 @@ export default {
     isAdmin(){
       return this.$store.$auth.$state.user?.role=='ADMIN'
     },
-    // ...mapState("messageDialog", {
-    //   isOpened: state => state.isOpened,
-    //   title: state => state.title,
-    //   content: state => state.content
-    // })
+  },
+  async mounted(){
+    console.log(this.navigationItems)
   },
   methods: {
     navigateToPost() {
