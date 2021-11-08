@@ -54,9 +54,8 @@ app.get('/blog/category', async(req,res)=>{
 })
 
 //글 목록
-app.get('/blog/:categoryId/post',async (req,res)=>{
-  const {categoryId} = req.params;
-  const {page} = req.query;
+app.get('/blog/post',async (req,res)=>{
+  const {categoryId,page} = req.query;
 
    const {Parameter} = await (new aws.SSM()).getParameter({
     Name:process.env.ACCESS_TOKEN,
@@ -82,7 +81,7 @@ app.get('/blog/post/:postId',async (req,res)=>{
 })
 
 //글작성
-app.post(`blog/post`,async (req,res)=>{
+app.post(`/blog/post`,async (req,res)=>{
   const {title,content,visibility,categoryId,published,tag} = req.body
 
   const {Parameter} = await (new aws.SSM()).getParameter({

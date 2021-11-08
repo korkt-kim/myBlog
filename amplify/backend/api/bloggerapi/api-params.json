@@ -9,20 +9,12 @@
             "policyResourceName": "/blog/category"
         },
         {
-            "name": "/blog/{categoryId}/post",
+            "name": "/blog/post",
             "lambdaFunction": "blogger",
             "privacy": {
                 "open": true
             },
-            "policyResourceName": "/blog/*/post"
-        },
-        {
-            "name": "/blog/post/{postId}",
-            "lambdaFunction": "blogger",
-            "privacy": {
-                "open": true
-            },
-            "policyResourceName": "/blog/post/*"
+            "policyResourceName": "/blog/post"
         }
     ],
     "resourceName": "bloggerapi",
@@ -48,5 +40,5 @@
             ]
         }
     ],
-    "uuid": "0ae5de39"
+    "uuid": "69483314"
 }

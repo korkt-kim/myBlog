@@ -24,7 +24,7 @@
       "function": {
         "blogger": {
           "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/blogger-58596f30414e784c6164-build.zip",
+          "s3Key": "amplify-builds/blogger-53467134456445437363-build.zip",
           "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
         }
       }
