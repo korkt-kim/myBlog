@@ -1,56 +1,55 @@
 <template>
-  <v-app-bar 
-      color="deep-grey accent-4"
-      dark
-      max-height="70"
-      app
-      clipped-left
-      flat
-  >
-    <v-toolbar-title>
-      <NuxtLink to="/" style="text-align: center;">
+  <section>
+    <header class="header">
+      <NuxtLink to="/" >
         <img class="PolzLogo" src="/polz-logo.png" />
       </NuxtLink>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <div v-if="!$localAuth.isAuthenticated" class="Header_Item">
-      <v-btn to="login">로그인</v-btn>
-      <v-btn to="register">회원가입</v-btn>
-    </div>
-    <div v-else>
-      {{$localAuth.email}}
-      <v-btn @click="$store.dispatch('localAuth/logout')">로그아웃</v-btn>
-    </div>
-    <!-- <v-menu v-else offset-y v-model="showUserMenu" style="max-width: 100px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-img
-              :src="picture"
-              class="rounded-circle"
-              max-width="50"
-              max-height="50"
-              v-bind="attrs"
-              v-on="on"
-              style="cursor:pointer"
-            />
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="(item, index) in userMenuItems"
-          :key="index"
-          @click="item.action"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu> -->
-  </v-app-bar>
+      
+      <section class="header__header-item">
+        <div v-if="!$localAuth.isAuthenticated">
+          <v-btn to="login">로그인</v-btn>
+          <v-btn to="register">회원가입</v-btn>
+          <v-icon @click="toggleNav">mdi-menu</v-icon>
+        </div>
+        <div v-else>
+          {{$localAuth.email}}
+          <v-btn @click="$store.dispatch('localAuth/logout')">로그아웃</v-btn>
+        </div>
+      </section>
+    </header>
+
+    <nav class="nav" :isOpen="showNav? 'true':'false'">
+      <div class="nav__close-button">
+        <v-icon @click="toggleNav">mdi-close</v-icon>
+      </div>
+      
+      <ul class="nav__list">
+        <li class="nav__list__item" v-for="item in navItems" :key="item" link>
+            {{ item }}          
+        </li>
+      </ul>
+
+      <div class="nav__post" >
+        <v-btn block>
+          add post
+        </v-btn>
+      </div>
+    </nav>
+  </section>
 </template>
 <script>
 import get from 'lodash.get'
 export default {
+  props:{
+    navItems: {
+      type: Array,
+      default: () => []
+    },
+  },
   data() {
     return {
       showUserMenu:false,
+      showNav:false,
       userMenuItems: [
         { title: '로그아웃',action: ()=>this.$auth.logout()},
       ],
@@ -68,11 +67,35 @@ export default {
   methods: {
     logout() {
       return this.$auth.logout();
+    },
+    toggleNav(){
+      this.showNav=!this.showNav;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
+section{
+  overflow:auto;
+}
+.header{
+  position:fixed;
+  padding:0 1em;
+  z-index:100;
+  display:flex;
+  width:100%;
+  min-height:64px;
+  justify-content:space-between;
+  align-items:center;
+  background:black;
+  .link-main{
+    text-align: center;
+  }
+  .header__header-item{
+    padding-right:0.5em;
+  }
+}
+
 .PolzLogo {
   height: 30px;
   width: 90px;
@@ -86,6 +109,64 @@ export default {
   }
   100% {
     transform: rotateY(0deg);
+  }
+}
+
+.nav{
+  position:fixed;
+  top:0;
+  bottom:0;
+  right:0;
+  z-index:110;
+  background-color:black;
+  width:300px;
+  transition: transform 0.8s ease-in;
+  &[isOpen=true]{
+    transform: translateX(0%);
+  }
+  &[isOpen=false]{
+    transform:translateX(100%);
+  }
+  
+  .nav__close-button{
+    padding:20px 20px;
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    background:black;
+    .mdi-close{
+      font-size:35px !important;
+    }
+  }
+  
+  .nav__list{
+    overflow:auto;
+    list-style:none;
+    .nav__list__item{
+      font-size:19.2px;
+      padding: 8px 2px;
+      cursor:pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen';
+      &:hover{
+        background: grey; 
+      }
+      &:active{
+        animation: vibrate 75ms linear 3 forwards;
+        @keyframes vibrate{
+          0% {
+            transform: translateX(-1px) translateY(1px);
+          }
+          100% {
+            transform: translateX(1px) translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+  
+  .nav__post{
+    bottom:0px;
+    margin:15px 10px;
   }
 }
 </style>
