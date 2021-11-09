@@ -1,19 +1,11 @@
 <template>
   <v-app dark>
-    <Header />
-    <Navigation :items="navigation.map(item=>item.name)" @onClickItem="navigateToPostList">
-      <template v-slot:bottom>
-        <div class="pa-2" v-if="isAdmin" >
-          <v-btn block @click="navigateToPost">
-            add post
-          </v-btn>
-        </div>
-      </template>
+    <Header :navItems="navigation.map(item=>item.name)"/>
+    <Navigation  @onClickItem="navigateToPostList">
+      
     </Navigation>
     <v-main>
-      <v-container fluid>
-        <Nuxt />   
-      </v-container>
+        <Nuxt />
     </v-main>
     <Footer />
   </v-app>
