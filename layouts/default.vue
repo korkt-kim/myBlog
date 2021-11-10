@@ -54,8 +54,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 :root {
   --primary-color: #00c58e;
+}
+@media (max-width:768px){
+  html{
+    font-size:8px;
+  }
+  h1{
+    font-size:32px;
+  }
+  p{
+    font-size:17px;
+  }
 }
 </style>

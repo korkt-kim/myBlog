@@ -1,5 +1,5 @@
 <template>
-	<section class="section" :style="{backgroundImage:getBackgroundImage()}">
+	<section class="section">
 		<div class="section__content">
 			<div class="section__content__text-group">
 				<h1>{{title}}</h1>
@@ -42,6 +42,7 @@ export default {
 			entries.forEach(entry=>{
 				if(!entry.isIntersecting) return;
 				entry.target.style.visibility='visible'
+				entry.target.style.backgroundImage = this.getBackgroundImage();
 				entry.target.classList.add('section__content-animation')
 				observer.unobserve(entry.target)
 			})
@@ -67,15 +68,35 @@ export default {
 	height:100vh;
 	background-size:cover;
 	background-position:center;
+	.section__content{
+		display:flex;
+		flex-direction:column;
+		justify-content:space-between;
+		align-items:center;
+		height:100%;
+		width:100%;
+
+		.section__content__text-group{
+			padding-top:15vh;
+			text-align:center;
+			font-size:35px;
+			color:black;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen';
+		}
+
+		.section__content__button-group{
+			margin-bottom:100px;
+			display:flex;
+			.v-btn{
+				margin:10px;
+			}
+			@media screen and (max-width:768px) {
+				flex-direction:column;
+			}
+		}
+	}
 }
-.section__content{
-	display:flex;
-	flex-direction:column;
-	justify-content:space-between;
-	align-items:center;
-	height:100%;
-	width:100%;
-}
+
 .section__content-animation{
 	animation-duration:1.8s;
 	animation-name:fadeIn;
@@ -89,25 +110,5 @@ export default {
 		opacity:1;
 		margin-top:0%;
 	}
-}
-
-.section__content__text-group{
-	padding-top:15vh;
-	text-align:center;
-	font-size:35px;
-	color:black;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen';
-}
-
-.section__content__button-group{
-	margin-bottom:100px;
-	display:flex;
-	.v-btn{
-		margin:10px;
-	}
-	@media screen and (max-width:768px) {
-		flex-direction:column;
-	}
-	
 }
 </style>
