@@ -1,17 +1,20 @@
 <template>
   <div id="register">
-    <h1 >Login</h1>
+    <h1 >Sign Up</h1>
     <form @submit.prevent="signup">
         <input v-model="loginForm.email" type="email" placeholder="Email" class="form-control"/>
         <input v-model="loginForm.password" type="password" placeholder="Password" class="from-control"/>
-        
-        <button type="submit" class="button--green">Login</button>
+        <input v-model="loginForm.nickname" type="text" placeholder="nickname" class="form-control"/>
+        <div class="gender-input">
+            <div><input id="male" name="gender" v-model="loginForm.gender" type="radio" value="male"><label for="male">male</label></div>
+            <div><input id="female" name="gender" v-model="loginForm.gender" type="radio" value="female"><label for="female">female</label></div>
+        </div>
+        <button type="submit" class="button--green">Sign Up</button>
     </form>
-
-    <div class="OAuth">
-    	<button id="btnConnectGoogle" class="OAuthbtn">Sign In With Google</button>
+		<div class="OAuth">
+    	<button id="btnConnectGoogle" class="OAuthbtn">Sign Up With Google</button>
 		</div>
-    <div><nuxt-link to="signup">Need an account? Register</nuxt-link></div>
+    <div><nuxt-link to="login">Already have an account? Login</nuxt-link></div>
   </div>
 </template>
 
@@ -29,6 +32,9 @@ export default {
         password:''
       },
     }
+  },
+  mounted(){
+      
   },
   computed: {},
   methods:{

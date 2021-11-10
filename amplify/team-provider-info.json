@@ -12,9 +12,6 @@
       "AmplifyAppId": "d14c4eovpg3bl6"
     },
     "categories": {
-      "auth": {
-        "blogfrontfd070da2": {}
-      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d14c4eovpg3bl6",
@@ -24,9 +21,12 @@
       "function": {
         "blogger": {
           "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/blogger-53467134456445437363-build.zip",
+          "s3Key": "amplify-builds/blogger-2b57354b2b6c346f4c39-build.zip",
           "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
         }
+      },
+      "auth": {
+        "blogfront4c270105": {}
       }
     }
   }

@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "blogfrontfd070da2_identitypool_fd070da2",
+    "identityPoolName": "blogfront4c270105_identitypool_4c270105",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "blogfrfd070da2",
-    "userPoolName": "blogfrontfd070da2_userpool_fd070da2",
+    "resourceNameTruncated": "blogfr4c270105",
+    "userPoolName": "blogfront4c270105_userpool_4c270105",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -29,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "blogfrfd070da2_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "blogfr4c270105_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "fd070da2",
-    "resourceName": "blogfrontfd070da2",
+    "sharedId": "4c270105",
+    "resourceName": "blogfront4c270105",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,10 +46,17 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "defaultSocial",
+    "hostedUI": true,
     "usernameAttributes": [
         "email"
     ],
+    "hostedUIDomainName": "polzblog",
+    "authProvidersUserPool": [
+        "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/callback/\"],\"LogoutURLs\":[\"http://localhost:3000/logout/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

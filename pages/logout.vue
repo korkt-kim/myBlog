@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  layout: "auth",
   mounted(){
     setTimeout(()=>{
       this.$router.push('/');
