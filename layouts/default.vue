@@ -1,9 +1,6 @@
 <template>
   <v-app dark>
     <Header :navItems="navigation.map(item=>item.name)"/>
-    <Navigation  @onClickItem="navigateToPostList">
-      
-    </Navigation>
     <v-main>
         <Nuxt />
     </v-main>

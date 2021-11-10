@@ -18,7 +18,7 @@
       </div>
     </header>
 
-    <nav class="nav" :isOpen="showNav? 'true':'false'">
+    <nav ref="nav" class="nav" :isOpen="showNav? 'true':'false'">
       <div class="nav__close-button">
         <v-icon @click="toggleNav">mdi-close</v-icon>
       </div>
@@ -65,19 +65,17 @@ export default {
     }
   },
   methods: {
-    logout() {
+    logout() {``
       return this.$auth.logout();
     },
     toggleNav(){
       this.showNav=!this.showNav;
+      document.documentElement.style.overflow=this.showNav ? 'hidden' :'auto';
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-section{
-  overflow:auto;
-}
 .header{
   position:fixed;
   padding:0 1em;
@@ -119,7 +117,8 @@ section{
 }
 
 .nav{
-  overflow:auto;
+  overflow-y:auto;
+  overflow-x:hidden;
   position:fixed;
   top:0;
   bottom:0;
@@ -147,11 +146,10 @@ section{
   }
   
   .nav__list{
-    overflow:auto;
     list-style:none;
     .nav__list__item{
       font-size:1.1rem;
-      padding: 8px 2px;
+      padding: 1rem ;
       cursor:pointer;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen';
       &:hover{
