@@ -1,6 +1,6 @@
 {
   "auth": {
-    "blogfrontfd070da2": {
+    "blogfront4c270105": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

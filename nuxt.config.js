@@ -75,7 +75,7 @@ export default {
   },
 
   auth: {
-    plugins: [ { src: '~/plugins/axios', ssr: true }, {src:'~/middleware/auth','srr':true}],
+    plugins: [ { src: '~/plugins/axios', ssr: true }],
     redirect: {
       login:'/login',
       callback: "/callback",

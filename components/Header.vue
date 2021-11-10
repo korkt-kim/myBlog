@@ -6,14 +6,14 @@
       </NuxtLink>
       
       <div class="header__header-item">
-        <div v-if="!$localAuth.isAuthenticated">
+        <div v-if="true">
           <v-btn to="login">로그인</v-btn>
-          <v-btn to="register">회원가입</v-btn>
+          <v-btn to="signup">회원가입</v-btn>
           <v-icon @click="toggleNav">mdi-menu</v-icon>
         </div>
         <div v-else>
-          {{$localAuth.email}}
-          <v-btn @click="$store.dispatch('localAuth/logout')">로그아웃</v-btn>
+          asdf
+          <v-btn @click="$store.dispatch('awsCognito/logout')">로그아웃</v-btn>
         </div>
       </div>
     </header>
