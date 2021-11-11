@@ -14,24 +14,24 @@
 </template>
 
 <script>
-import {getPostsByCategory} from '~/apis/blog'
 export default {
     data(){
         return{
             postList:[],
             label:null,
             nextPageToken:null,
-            prevPageToken:null
+            prevPageToken:null,
+            postResponse:{}
         }
     },
-    async asyncData({$axios,params}){
-        const label = params.label
-        const postResponse = await getPostsByCategory({$axios},label);
-        return {
-            label,
-            postResponse
-        }
-    },
+    // async asyncData({$axios,params}){
+    //     const label = params.label
+    //     // const postResponse = await getPostsByCategory({$axios},label);
+    //     return {
+    //         label,
+    //         // postResponse
+    //     }
+    // },
     mounted(){
         const{items,nextPageToken} =  this.postResponse;
         this.postList = items;
