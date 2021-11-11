@@ -48,7 +48,7 @@ export default {
 			})
 		},{
   		root:null,
-			threshold:0.1
+			threshold:0.8
 		})
 		intersectionObserver.observe(this.$el)
 	},
@@ -98,13 +98,13 @@ export default {
 }
 
 .section__content-animation{
-	animation-duration:1.8s;
+	animation-duration:1.5s;
 	animation-name:fadeIn;
 }
 @keyframes fadeIn {
 	from{
 		opacity:0;
-		margin-top:50%;
+		margin-top:5%;
 	}
 	to{
 		opacity:1;
