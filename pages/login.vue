@@ -1,7 +1,8 @@
 <template>
   <div id="register">
     <h1 >Login</h1>
-    <form @submit.prevent="signup">
+    <div v-if="messages.errorMessage" class="error-message">{{messages.errorMessage}}</div>
+    <form @submit.prevent="cognitoSignin">
         <input v-model="loginForm.email" type="email" placeholder="Email" class="form-control"/>
         <input v-model="loginForm.password" type="password" placeholder="Password" class="from-control"/>
         
@@ -9,13 +10,14 @@
     </form>
 
     <div class="OAuth">
-    	<button id="btnConnectGoogle" class="OAuthbtn">Sign In With Google</button>
+    	<button id="btnConnectGoogle" class="OAuthbtn" @click="federatedSignin('google')">Sign In With Google</button>
 		</div>
     <div><nuxt-link to="signup">Need an account? Register</nuxt-link></div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 
 export default {
   head: {
@@ -27,12 +29,42 @@ export default {
       loginForm:{
         email:'',
         password:''
-      },
+      },  
+      messages:{
+        errorMessage:'',
+      }
     }
   },
   computed: {},
   methods:{
-    
+    ...mapActions('awsCognito',['login','federatedSigninGoogle']),
+    async cognitoSignin(){
+      try{
+        await this.login(this.loginForm);
+        this.$router.push('/');
+      }catch(e){
+        console.error(e.message)
+        this.setErrorMessage(e.message)
+      }
+      
+    },
+    federatedSignin(resourceOwner){
+      try{
+        switch (resourceOwner){
+          case 'google':
+            this.federatedSigninGoogle();
+            return;
+          default:
+            throw new Error('not validate request');
+        }
+      }catch(e){
+        console.error(e.message);
+        this.setErrorMessage = e.message
+      }
+    },
+    setErrorMessage(errorMessage){
+      this.messages.errorMessage=errorMessage;
+    }
   }
 };
 </script>
@@ -45,6 +77,12 @@ div#register{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  .error-message{
+    color:black;
+    background:orange;
+    border: 3px solid red;
+    width:29rem;
+  }
   form{
 		width:29rem;
 		display: flex;

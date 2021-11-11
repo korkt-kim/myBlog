@@ -10,7 +10,7 @@
         <button class="button--green">Sign Up</button>
     </form>
 		<div class="OAuth">
-    	<button id="btnConnectGoogle" class="OAuthbtn" @click="()=>federatedSignup('google')">Sign Up With Google</button>
+    	<button id="btnConnectGoogle" class="OAuthbtn" @click="federatedSignup('google')">Sign Up With Google</button>
 		</div>
     <div><nuxt-link to="login">Already have an account? Login</nuxt-link></div>
   </div>
@@ -49,7 +49,7 @@ export default {
     async localSignup(){
       try{
         await this.signup(this.loginForm);
-        this.setPositiveMessage(`verification mail was sent to ${this.loginForm.email}`)
+        this.setPositiveMessage(`verification mail is sent to ${this.loginForm.email}`)
         this.loginForm={};
       }catch(e){
         console.error(e.message)
@@ -57,7 +57,6 @@ export default {
       }
     },
     federatedSignup(resourceOwner){
-      console.log(resourceOwner);
       try{
         switch (resourceOwner){
           case 'google':

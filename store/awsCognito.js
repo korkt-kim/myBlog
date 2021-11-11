@@ -53,10 +53,14 @@ export const actions = {
     },
 
     async login({commit},{email,password}){
-        const user=  await Auth.signIn(email,password);
-
-        commit('set',{...user});
-        return user;
+        try{
+            const user=  await Auth.signIn(email,password);
+            commit('set',user);
+            return user;
+        }catch(e){
+            commit('set',null);
+            throw new Error('Login failed. Check email address and password.');
+        }
     },
 
     async logout({commit}){
