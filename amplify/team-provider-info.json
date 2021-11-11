@@ -23,10 +23,17 @@
           "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
           "s3Key": "amplify-builds/blogger-2b57354b2b6c346f4c39-build.zip",
           "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
+        },
+        "blogfront5d28f0eeCustomMessage": {
+          "REDIRECTURL": "http://localhost:3000",
+          "EMAILSUBJECT": "polz's blog에 오신걸 환영합니다!",
+          "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!!\n아래 링크를 클릭하세요\n",
+          "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
+          "s3Key": "amplify-builds/blogfront5d28f0eeCustomMessage-54325a2f7650666f2f61-build.zip"
         }
       },
       "auth": {
-        "blogfront4c270105": {}
+        "blogfront5d28f0ee": {}
       }
     }
   }

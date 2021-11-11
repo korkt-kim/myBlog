@@ -10,6 +10,7 @@
 
 <script>
 import {API} from "aws-amplify"
+import {mapActions,mapGetters} from 'vuex';
 
 export default {
   async fetch() {
@@ -22,12 +23,15 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      user:'awsCognito/user'
+    }),
     isAdmin(){
       return this.$store.$auth.$state.user?.role=='ADMIN'
     },
   },
-
   methods: {
+    ...mapActions('awsCognito', ['checkUser']),
     async getNavigation(){
       const categories = await API.get('bloggerapi','/blog/category')
       categories.sort((item1,_)=>item1.parent ? 1 : -1)

@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "blogfront4c270105_identitypool_4c270105",
+    "identityPoolName": "blogfront5d28f0ee_identitypool_5d28f0ee",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "blogfr4c270105",
-    "userPoolName": "blogfront4c270105_userpool_4c270105",
+    "resourceNameTruncated": "blogfr5d28f0ee",
+    "userPoolName": "blogfront5d28f0ee_userpool_5d28f0ee",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,8 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -29,10 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "blogfr4c270105_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "blogfr5d28f0ee_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "4c270105",
-    "resourceName": "blogfront4c270105",
+    "sharedId": "5d28f0ee",
+    "resourceName": "blogfront5d28f0ee",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -51,14 +52,32 @@
     "usernameAttributes": [
         "email"
     ],
-    "hostedUIDomainName": "polzblog",
+    "triggers": "{\n  \"CustomMessage\": [\n    \"verification-link\"\n  ]\n}",
+    "hostedUIDomainName": "blogfront5d28f0ee-5d28f0ee",
     "authProvidersUserPool": [
         "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/callback/\"],\"LogoutURLs\":[\"http://localhost:3000/logout/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
+    "verificationBucketName": "blogfront5d28f0eeverificationbucket",
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"blogfront5d28f0eeCustomMessage\"\n  }\n]",
+    "breakCircularDependency": true,
+    "permissions": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "blogfront5d28f0eeCustomMessage",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ]
 }

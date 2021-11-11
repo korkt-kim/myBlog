@@ -35,8 +35,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [{src:'~/plugins/amplify.js'}],
-
-  middleware: [],
+  
+  middleware: ["auth"],
+  
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -49,7 +50,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/dotenv", "@nuxtjs/axios", "@nuxtjs/auth-next"],
+  modules: ["@nuxtjs/dotenv", "@nuxtjs/axios"],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

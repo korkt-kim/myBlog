@@ -1,25 +1,23 @@
 <template>
   <div id="register">
     <h1 >Sign Up</h1>
-    <form @submit.prevent="signup">
+    <div v-if="messages.positiveMessage" class="positive-message">{{messages.positiveMessage}}</div>
+    <div v-if="messages.errorMessage" class="error-message">{{messages.errorMessage}}</div>
+    <form  @submit.prevent="localSignup">
         <input v-model="loginForm.email" type="email" placeholder="Email" class="form-control"/>
         <input v-model="loginForm.password" type="password" placeholder="Password" class="from-control"/>
-        <input v-model="loginForm.nickname" type="text" placeholder="nickname" class="form-control"/>
-        <div class="gender-input">
-            <div><input id="male" name="gender" v-model="loginForm.gender" type="radio" value="male"><label for="male">male</label></div>
-            <div><input id="female" name="gender" v-model="loginForm.gender" type="radio" value="female"><label for="female">female</label></div>
-        </div>
-        <button type="submit" class="button--green">Sign Up</button>
+        <input v-model="loginForm.name" type="text" placeholder="name" class="form-control"/>
+        <button class="button--green">Sign Up</button>
     </form>
 		<div class="OAuth">
-    	<button id="btnConnectGoogle" class="OAuthbtn">Sign Up With Google</button>
+    	<button id="btnConnectGoogle" class="OAuthbtn" @click="()=>federatedSignup('google')">Sign Up With Google</button>
 		</div>
     <div><nuxt-link to="login">Already have an account? Login</nuxt-link></div>
   </div>
 </template>
 
 <script>
-
+import { mapActions } from "vuex";
 export default {
   head: {
     title: "polz's blog",
@@ -29,8 +27,13 @@ export default {
     return{
       loginForm:{
         email:'',
-        password:''
+        password:'',
+        name:''
       },
+      messages:{
+        errorMessage:'',
+        positiveMessage:'',
+      }
     }
   },
   mounted(){
@@ -38,7 +41,44 @@ export default {
   },
   computed: {},
   methods:{
-    
+    ...mapActions('awsCognito',[
+      'federatedSigninGoogle',
+      'signup',
+      'checkUser'
+    ]),
+    async localSignup(){
+      try{
+        await this.signup(this.loginForm);
+        this.setPositiveMessage(`verification mail was sent to ${this.loginForm.email}`)
+        this.loginForm={};
+      }catch(e){
+        console.error(e.message)
+        this.setErrorMessage(e.message)
+      }
+    },
+    federatedSignup(resourceOwner){
+      console.log(resourceOwner);
+      try{
+        switch (resourceOwner){
+          case 'google':
+            this.federatedSigninGoogle();
+            return;
+          default:
+            throw new Error('not validate request')
+        }
+      }catch(e){
+        console.error(e)
+        this.setErrorMessage(e.message)
+      }
+    },
+    setPositiveMessage(positiveMessage){
+      this.messages.positiveMessage=positiveMessage;
+      this.messages.errorMessage='';
+    },
+    setErrorMessage(errorMessage){
+      this.messages.positiveMessage='';
+      this.messages.errorMessage=errorMessage;
+    }
   }
 };
 </script>
@@ -47,10 +87,21 @@ export default {
 div#register{
   height: 100%;
   display: flex;
-
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  .error-message{
+    color:black;
+    background:orange;
+    border: 3px solid red;
+    width:29rem;
+  }
+  .positive-message{
+    color:black;
+    background:greenyellow;
+    border:3px solid green;
+    width:29rem;
+  }
   form{
 		width:29rem;
 		display: flex;

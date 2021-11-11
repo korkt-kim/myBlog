@@ -1,13 +1,17 @@
 import { Auth } from 'aws-amplify';
 
 export const state = () =>({
-    isAuthenticated: false,
     user: null
 })
 
+export const getters={
+    user(state){
+        return state.user;
+    }
+}
+
 export const mutations = {
     set(state,user){
-        state.isAuthenticated = !!user;
         state.user= user;
     }
 }
@@ -22,10 +26,24 @@ export const actions = {
         }
     },
 
-    async register(_,{email,password}){
+    async checkUser({commit}){
+        try{
+            const user =  await Auth.currentAuthenticatedUser();
+            commit('set',user);
+            return user;
+        }catch(e){
+            commit('set',null);
+        }
+        
+    },
+
+    async signup(_,{email,password,name}){
         const user = await Auth.signUp({
             username:email,
-            password
+            password,
+            attributes:{
+                name
+            }
         })
         return user;
     },
@@ -46,13 +64,13 @@ export const actions = {
         commit('set',null);
     },
 
-    async federeatedSignin(){
+    async federatedSigninGoogle(){
         Auth.federatedSignIn({
             provider:"Google"
         })
     },
 
-    async checkUser(){
-        return await Auth.currentAuthenticatedUser();
-    }
+    async federatedSignOut(){
+        Auth.federatedSignOut()
+    },
 }
