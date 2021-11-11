@@ -44,5 +44,15 @@ export const actions = {
     async logout({commit}){
         await Auth.signOut();
         commit('set',null);
+    },
+
+    async federeatedSignin(){
+        Auth.federatedSignIn({
+            provider:"Google"
+        })
+    },
+
+    async checkUser(){
+        return await Auth.currentAuthenticatedUser();
     }
 }

@@ -34,9 +34,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{src:'~/plugins/amplify.js'},{src:'~/plugins/auth'}],
+  plugins: [{src:'~/plugins/amplify.js'}],
 
-  middleware: ['auth'],
+  middleware: [],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -74,25 +74,5 @@ export default {
     baseUrl: process.env.BASE_URL || `http://localhost:8080`
   },
 
-  auth: {
-    plugins: [ { src: '~/plugins/axios', ssr: true }],
-    redirect: {
-      login:'/login',
-      callback: "/callback",
-      logout: "/logout",
-      home:'/'
-    },
-    strategies: {
-      google: {
-        responseType: "token id_token",
-        clientId:
-          "884171338892-2i1nb7cakj8e0g0k5r3s1o9dhlr5oebe.apps.googleusercontent.com",
-        grantType: 'authorization_code',
-        codeChallengeMethod: "",
-        scope: ['openid','profile', 'email',`https://www.googleapis.com/auth/blogger` ,`https://www.googleapis.com/auth/blogger.readonly`]
-      }
-    }
-  },
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {}
 };
