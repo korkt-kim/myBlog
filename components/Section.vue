@@ -1,5 +1,5 @@
 <template>
-	<section class="section">
+	<section class="section" :style="{backgroundImage:getBackgroundImage()}">
 		<div class="section__content">
 			<div class="section__content__text-group">
 				<h1>{{title}}</h1>
@@ -42,13 +42,12 @@ export default {
 			entries.forEach(entry=>{
 				if(!entry.isIntersecting) return;
 				entry.target.style.visibility='visible'
-				entry.target.style.backgroundImage = this.getBackgroundImage();
 				entry.target.classList.add('section__content-animation')
 				observer.unobserve(entry.target)
 			})
 		},{
   		root:null,
-			threshold:0.1
+			threshold:0.07
 		})
 		intersectionObserver.observe(this.$el)
 	},
@@ -98,13 +97,13 @@ export default {
 }
 
 .section__content-animation{
-	animation-duration:1.8s;
+	animation-duration:1.5s;
 	animation-name:fadeIn;
 }
 @keyframes fadeIn {
 	from{
 		opacity:0;
-		margin-top:50%;
+		margin-top:5%;
 	}
 	to{
 		opacity:1;
