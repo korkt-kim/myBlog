@@ -6,15 +6,15 @@
       </NuxtLink>
       
       <div class="header__header-item">
-        <div v-if="true">
+        <span v-if="!user">
           <v-btn to="login">로그인</v-btn>
           <v-btn to="signup">회원가입</v-btn>
-          <v-icon @click="toggleNav">mdi-menu</v-icon>
-        </div>
-        <div v-else>
-          asdf
-          <v-btn @click="$store.dispatch('awsCognito/logout')">로그아웃</v-btn>
-        </div>
+        </span>
+        <span v-else>
+          <span style="margin-right:1rem;">안녕하세요 {{user.name}} 님!</span>
+          <v-btn @click="logout">로그아웃</v-btn>
+        </span>
+        <span><v-icon @click="toggleNav">mdi-menu</v-icon></span>
       </div>
     </header>
 
@@ -38,7 +38,7 @@
   </section>
 </template>
 <script>
-import get from 'lodash.get'
+import {mapGetters,mapActions} from 'vuex';
 export default {
   props:{
     navItems: {
@@ -56,18 +56,12 @@ export default {
     };
   },
   computed: {
-    picture() {
-      return (
-        get(this.$auth.user, 'picture')  // OpenID
-        // get(this.$auth.user, 'picture.data.url') || // Facebook graph API
-        // get(this.$auth.user, 'avatar_url')
-      ) // GitHub
-    }
+    ...mapGetters({
+      user:'awsCognito/user'
+    })
   },
   methods: {
-    logout() {``
-      return this.$auth.logout();
-    },
+    ...mapActions('awsCognito',['logout']),
     toggleNav(){
       this.showNav=!this.showNav;
       document.documentElement.style.overflow=this.showNav ? 'hidden' :'auto';
@@ -89,7 +83,7 @@ export default {
   .link-main{
     text-align: center;
   }
-  .header__header-item{
+  .header__header-item{ 
     .v-btn{
       height:2.4rem;
       min-height:24px;

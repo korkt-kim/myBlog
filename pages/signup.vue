@@ -44,7 +44,6 @@ export default {
     ...mapActions('awsCognito',[
       'federatedSigninGoogle',
       'signup',
-      'checkUser'
     ]),
     async localSignup(){
       try{
@@ -56,11 +55,11 @@ export default {
         this.setErrorMessage(e.message)
       }
     },
-    federatedSignup(resourceOwner){
+    async federatedSignup(resourceOwner){
       try{
         switch (resourceOwner){
           case 'google':
-            this.federatedSigninGoogle();
+            await this.federatedSigninGoogle();
             return;
           default:
             throw new Error('not validate request')

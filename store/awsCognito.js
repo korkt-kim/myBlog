@@ -1,12 +1,15 @@
 import { Auth } from 'aws-amplify';
 
 export const state = () =>({
-    user: null
+    user: {},
 })
 
 export const getters={
     user(state){
-        return state.user;
+        return state.user?.attributes
+    },
+    accessToken(state){
+        return state.user?.signInUserSession?.accessToken?.jwtToken;
     }
 }
 
@@ -29,9 +32,10 @@ export const actions = {
     async checkUser({commit}){
         try{
             const user =  await Auth.currentAuthenticatedUser();
+            console.log(user)
             commit('set',user);
-            return user;
         }catch(e){
+            console.log(e)
             commit('set',null);
         }
         
@@ -68,13 +72,9 @@ export const actions = {
         commit('set',null);
     },
 
-    async federatedSigninGoogle(){
-        Auth.federatedSignIn({
+    async federatedSigninGoogle({commit}){
+        await Auth.federatedSignIn({
             provider:"Google"
         })
-    },
-
-    async federatedSignOut(){
-        Auth.federatedSignOut()
     },
 }

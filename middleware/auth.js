@@ -1,6 +1,6 @@
-export default function({store}) {
+export default async function({store}) {
   const user= store.getters['awsCognito/user'];
   if(!user){
-    store.dispatch("awsCognito/checkUser");
+    await store.dispatch("awsCognito/checkUser");
   }
 }

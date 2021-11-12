@@ -46,13 +46,12 @@ export default {
         console.error(e.message)
         this.setErrorMessage(e.message)
       }
-      
     },
-    federatedSignin(resourceOwner){
+    async federatedSignin(resourceOwner){
       try{
         switch (resourceOwner){
           case 'google':
-            this.federatedSigninGoogle();
+            await this.federatedSigninGoogle();
             return;
           default:
             throw new Error('not validate request');
