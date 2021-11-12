@@ -7,12 +7,7 @@
   "functionName": "blogfront5d28f0eeCustomMessage",
   "resourceName": "blogfront5d28f0eeCustomMessage",
   "parentStack": "auth",
-  "triggerEnvs": [
-    {
-      "key": "RESOURCENAME",
-      "value": "resourceName"
-    }
-  ],
+  "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
   "triggerDir": "C:\\Users\\zakelstorm\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
   "triggerTemplate": "CustomMessage.json.ejs",
   "triggerEventPath": "CustomMessage.event.json",

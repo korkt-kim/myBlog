@@ -7,8 +7,8 @@
       
       <div class="header__header-item">
         <span v-if="!user">
-          <v-btn to="login">로그인</v-btn>
-          <v-btn to="signup">회원가입</v-btn>
+          <NuxtLink to="/login"><v-btn>로그인</v-btn></NuxtLink>
+          <NuxtLink to="/signup"><v-btn>회원가입</v-btn></NuxtLink>
         </span>
         <span v-else>
           <span style="margin-right:1rem;">안녕하세요 {{user.name}} 님!</span>
