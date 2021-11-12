@@ -58,7 +58,6 @@
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/callback/\"],\"LogoutURLs\":[\"http://localhost:3000/logout/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "verificationBucketName": "blogfront5d28f0eeverificationbucket",
@@ -79,5 +78,6 @@
                 "Name"
             ]
         }
-    ]
+    ],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/callback/\"],\"LogoutURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/logout/\"]}"
 }

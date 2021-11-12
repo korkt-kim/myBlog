@@ -29,7 +29,7 @@
           "EMAILSUBJECT": "polz's blog에 오신걸 환영합니다!",
           "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!!\n아래 링크를 클릭하세요\n",
           "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/blogfront5d28f0eeCustomMessage-54325a2f7650666f2f61-build.zip"
+          "s3Key": "amplify-builds/blogfront5d28f0eeCustomMessage-63644348484b505a3732-build.zip"
         }
       },
       "auth": {
