@@ -1,12 +1,12 @@
 {
   "auth": {
-    "blogfront5d28f0ee": {
+    "blogfront2d9a853a": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "blogfront5d28f0eeCustomMessage",
+          "resourceName": "blogfront2d9a853aCustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -43,7 +43,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "blogfront5d28f0eeCustomMessage": {
+    "blogfront2d9a853aCustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -71,5 +71,6 @@
       "type": "cicd",
       "lastPushTimeStamp": "2021-10-26T14:31:38.855Z"
     }
-  }
+  },
+  "storage": {}
 }

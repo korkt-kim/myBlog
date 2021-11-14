@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "blogfront5d28f0ee_identitypool_5d28f0ee",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "blogfr5d28f0ee",
-    "userPoolName": "blogfront5d28f0ee_userpool_5d28f0ee",
+    "identityPoolName": "blogfront2d9a853a_identitypool_2d9a853a",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "blogfr2d9a853a",
+    "userPoolName": "blogfront2d9a853a_userpool_2d9a853a",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -30,10 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "blogfr5d28f0ee_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "blogfr2d9a853a_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "5d28f0ee",
-    "resourceName": "blogfront5d28f0ee",
+    "sharedId": "2d9a853a",
+    "resourceName": "blogfront2d9a853a",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -53,31 +53,31 @@
         "email"
     ],
     "triggers": "{\n  \"CustomMessage\": [\n    \"verification-link\"\n  ]\n}",
-    "hostedUIDomainName": "blogfront5d28f0ee-5d28f0ee",
+    "hostedUIDomainName": "blogfront2d9a853a-2d9a853a",
     "authProvidersUserPool": [
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/callback/\"],\"LogoutURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/logout/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "blogfront5d28f0eeverificationbucket",
+    "verificationBucketName": "blogfront2d9a853averificationbucket",
     "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"blogfront5d28f0eeCustomMessage\"\n  }\n]",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"blogfront2d9a853aCustomMessage\"\n  }\n]",
     "breakCircularDependency": true,
     "permissions": [],
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "blogfront5d28f0eeCustomMessage",
+            "resourceName": "blogfront2d9a853aCustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
                 "Name"
             ]
         }
-    ],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/callback/\"],\"LogoutURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/logout/\"]}"
+    ]
 }
