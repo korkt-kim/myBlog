@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <Header :navItems="navigation.map(item=>item.name)"/>
+    <Header :categories="navigation"/>
     <v-main>
         <Nuxt />
     </v-main>
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import {API} from "aws-amplify"
 import {mapGetters,mapActions} from 'vuex';
 
 export default {
@@ -19,12 +18,12 @@ export default {
   data() {
     return {
       navigation: [],
-      rawCategories:[]
     };
   },
   computed: {
     ...mapGetters({
-      user:'awsCognito/user'
+      user:'awsCognito/user',
+      categories:'blog/categories'
     }),
   },
   mounted(){
@@ -32,10 +31,10 @@ export default {
   },
   methods: {
     ...mapActions('awsCognito',['checkUser']),
+    ...mapActions('blog',['getCategories']),
     async getNavigation(){
-      const categories = await API.get('bloggerapi','/blog/category')
-      categories.sort((item1,_)=>item1.parent ? 1 : -1)
-      return categories.reduce((acc,item)=>{
+      await this.getCategories();
+      return this.categories.reduce((acc,item)=>{
         if(item.parent){
           const temp = acc.findIndex(parent=>parent.id===item.parent);
           acc[temp].subLinks.push(item)

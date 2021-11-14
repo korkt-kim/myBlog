@@ -32,10 +32,8 @@ export const actions = {
     async checkUser({commit}){
         try{
             const user =  await Auth.currentAuthenticatedUser();
-            console.log(user)
             commit('set',user);
         }catch(e){
-            console.log(e)
             commit('set',null);
         }
         

@@ -24,9 +24,9 @@
       </div>
       
       <ul class="nav__list">
-        <li class="nav__list__item" v-for="item in navItems" :key="item" link>
-            {{ item }}          
-        </li>
+        <NuxtLink class="nav__list__item" v-for="category in categories"  :key="category.id" :to="{path:'/category/'+category.id,params:{categoryTitle:category.name}}" >
+            {{ category.name }}       
+        </NuxtLink>   
       </ul>
 
       <div class="nav__post" >
@@ -41,18 +41,14 @@
 import {mapGetters,mapActions} from 'vuex';
 export default {
   props:{
-    navItems: {
+    categories: {
       type: Array,
       default: () => []
     },
   },
   data() {
     return {
-      showUserMenu:false,
       showNav:false,
-      userMenuItems: [
-        { title: '로그아웃',action: ()=>this.$auth.logout()},
-      ],
     };
   },
   computed: {
@@ -65,7 +61,7 @@ export default {
     toggleNav(){
       this.showNav=!this.showNav;
       document.documentElement.style.overflow=this.showNav ? 'hidden' :'auto';
-    }
+    },
   }
 };
 </script>
@@ -142,6 +138,8 @@ export default {
   .nav__list{
     list-style:none;
     .nav__list__item{
+      width:100%;
+      display:block;
       font-size:1.1rem;
       padding: 1rem ;
       cursor:pointer;
@@ -166,6 +164,11 @@ export default {
   .nav__post{
     bottom:0px;
     margin:15px 10px;
+  }
+
+  a{
+    text-decoration:none;
+    color: white;
   }
 }
 </style>
