@@ -11,10 +11,10 @@
     "userpoolArn": {
       "Type": "String"
     },
-    "functionblogfront5d28f0eeCustomMessageName": {
+    "functionblogfront2d9a853aCustomMessageName": {
       "Type": "String"
     },
-    "functionblogfront5d28f0eeCustomMessageArn": {
+    "functionblogfront2d9a853aCustomMessageArn": {
       "Type": "String"
     }
   },
@@ -34,7 +34,7 @@
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
-          "Ref": "functionblogfront5d28f0eeCustomMessageName"
+          "Ref": "functionblogfront2d9a853aCustomMessageName"
         },
         "Principal": "cognito-idp.amazonaws.com",
         "SourceArn": {
@@ -134,9 +134,9 @@
         "lambdaConfig": [
           {
             "triggerType": "CustomMessage",
-            "lambdaFunctionName": "blogfront5d28f0eeCustomMessage",
+            "lambdaFunctionName": "blogfront2d9a853aCustomMessage",
             "lambdaFunctionArn": {
-              "Ref": "functionblogfront5d28f0eeCustomMessageArn"
+              "Ref": "functionblogfront2d9a853aCustomMessageArn"
             }
           }
         ]
