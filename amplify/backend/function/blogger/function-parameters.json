@@ -2,5 +2,23 @@
   "lambdaLayers": [],
   "secretNames": [
     "ACCESS_TOKEN"
-  ]
+  ],
+  "permissions": {
+    "auth": {
+      "blogfront2d9a853a": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "commenttable": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

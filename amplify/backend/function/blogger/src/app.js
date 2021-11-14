@@ -1,4 +1,11 @@
-/*
+/* Amplify Params - DO NOT EDIT
+	AUTH_BLOGFRONT2D9A853A_USERPOOLID
+	ENV
+	REGION
+	STORAGE_COMMENTTABLE_ARN
+	STORAGE_COMMENTTABLE_NAME
+	STORAGE_COMMENTTABLE_STREAMARN
+Amplify Params - DO NOT EDIT *//*
 Use the following code to retrieve configured secrets from SSM:
 
 const aws = require('aws-sdk');
@@ -20,14 +27,17 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-
-
-
 const aws = require('aws-sdk');
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 const axios = require('axios');
+const {v4: uuidv4} = require('uuid');
+
+const dynamodb = new aws.DynamoDB.DocumentClient({
+  region: 'us-east-2'
+});
+const tableName = 'commenttable-dev'
 
 // declare a new express app
 var app = express()
@@ -40,6 +50,16 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "*")
   next()
 });
+
+const getUserId= req =>{
+  try{
+    const reqContext = req.apiGateway.event.requestContext;
+    const authProvider = reqContext.identity.cognitoAuthenticationProvider;
+    return authProvider ? authProvider.split(':CognitoSignIn:').pop() : 'Unauthorized';
+  }catch(e){
+    return 'Unauthorized';
+  }
+}
 
 //카테고리 읽기
 app.get('/blog/category', async(req,res)=>{
@@ -98,6 +118,48 @@ app.post(`/blog/post`,async (req,res)=>{
   &published=${published}
   &tag=${tag}`);
   res.json({status,postId,url})
+})
+
+//코멘트 읽기
+app.get(`/blog/comment`,async (req,res)=>{
+  const {postId} = req.query;
+  const params = {
+    FilterExpression: "postId = :postId",
+    ExpressionAttributeValues: {
+          ":postId": postId,
+    },
+    TableName:tableName,
+  }
+  try{
+    const result = await dynamodb.scan(params).promise()
+    res.json({result})
+  }catch(e){
+    return e;
+  }
+  
+})
+//코멘트 작성
+app.post('/blog/comment',async (req,res)=>{
+  const timestamp = new Date().toISOString();
+  const params = {
+    TableName:tableName,
+    Item:{
+      comments:{
+        ...req.body,
+        id:uuidv4(),
+        createdAt:timestamp,
+        updatedAt:timestamp,
+        userId:getUserId(req)
+      }
+    }
+  }
+  dynamodb.put(params,(error,result)=>{
+    if(error){
+      res.json({statusCode:500,error:error.message});
+    }else{
+      res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item)})
+    }
+  })
 })
 
 
