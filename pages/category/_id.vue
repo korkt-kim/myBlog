@@ -5,6 +5,7 @@
 			:items="postList"
 			:totalCount="totalCount"
 			@movePage="getPostListByCategoryId"
+			@clickItem="showPostDetail"
 		></Table>
 	</section>
 </template>
@@ -44,6 +45,9 @@ export default {
 					this.$nuxt.$loading.finish()
 				}
 			},
+			showPostDetail(postId){
+				this.$router.push(`/post/${postId}`);
+			}
 		}
 }
 </script>

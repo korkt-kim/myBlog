@@ -1,7 +1,7 @@
 <template>
 	<div id="table-group">
 		<div id="table">
-			<div class="table__summary" v-for="item in items" :key="item.id">
+			<div class="table__summary" v-for="item in items" :key="item.id" @click="clickItem(item.id)">
 				<div class="table__summary__header">
 					<h3>{{item.title}}</h3>
 					<small>{{item.date}}</small>
@@ -64,6 +64,9 @@ export default {
 		onClickPagination(page){
 			this.currentPage = page;
 			this.$emit("movePage",page)
+		},
+		clickItem(postId){
+			this.$emit('clickItem',postId);
 		}
 	}
 }
