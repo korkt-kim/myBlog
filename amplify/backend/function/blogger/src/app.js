@@ -62,7 +62,7 @@ app.get('/blog/post',async (req,res)=>{
     WithDecryption: true
   })
   .promise();
-  const {data:{tistory:{item:{count,totalCount,posts}}}} = await axios.get(`https://www.tistory.com/apis/post/list?access_token=${Parameter.Value}&categoryId=${categoryId}&output=json&blogName=zakelstorm&page=${page}`)
+  const {data:{tistory:{item:{count,totalCount,posts}}}} = await axios.get(`https://www.tistory.com/apis/post/list?access_token=${Parameter.Value}&categoryId=${categoryId}&output=json&blogName=zakelstorm&page=${page}&count=5`)
   res.json({count,totalCount,posts})
 })
 

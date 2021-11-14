@@ -48,7 +48,7 @@ export default {
     async localSignup(){
       try{
         await this.signup(this.loginForm);
-        this.setPositiveMessage(`verification mail is sent to ${this.loginForm.email}`)
+        this.setPositiveMessage(`verification mail will be sent to ${this.loginForm.email}`)
         this.loginForm={};
       }catch(e){
         console.error(e.message)
