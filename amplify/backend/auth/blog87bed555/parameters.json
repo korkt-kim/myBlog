@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "blogfront2d9a853a_identitypool_2d9a853a",
-    "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "blogfr2d9a853a",
-    "userPoolName": "blogfront2d9a853a_userpool_2d9a853a",
+    "identityPoolName": "blog87bed555_identitypool_87bed555",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "blog87bed555",
+    "userPoolName": "blog87bed555_userpool_87bed555",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -30,10 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "blogfr2d9a853a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "blog8787bed555_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "2d9a853a",
-    "resourceName": "blogfront2d9a853a",
+    "sharedId": "87bed555",
+    "resourceName": "blog87bed555",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -47,37 +47,32 @@
             "Arn"
         ]
     },
-    "useDefault": "defaultSocial",
-    "hostedUI": true,
+    "useDefault": "default",
+    "hostedUI": false,
     "usernameAttributes": [
         "email"
     ],
     "triggers": "{\n  \"CustomMessage\": [\n    \"verification-link\"\n  ]\n}",
-    "hostedUIDomainName": "blogfront2d9a853a-2d9a853a",
-    "authProvidersUserPool": [
-        "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/callback/\"],\"LogoutURLs\":[\"https://master.d14c4eovpg3bl6.amplifyapp.com/logout/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "blogfront2d9a853averificationbucket",
+    "verificationBucketName": "blog87bed555verificationbucket",
     "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"blogfront2d9a853aCustomMessage\"\n  }\n]",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"blog87bed555CustomMessage\"\n  }\n]",
     "breakCircularDependency": true,
     "permissions": [],
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "blogfront2d9a853aCustomMessage",
+            "resourceName": "blog87bed555CustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
                 "Name"
             ]
         }
-    ]
+    ],
+    "authProviders": []
 }

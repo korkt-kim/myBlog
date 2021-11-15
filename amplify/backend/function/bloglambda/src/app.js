@@ -1,5 +1,4 @@
 /* Amplify Params - DO NOT EDIT
-	AUTH_BLOGFRONT2D9A853A_USERPOOLID
 	ENV
 	REGION
 	STORAGE_COMMENTTABLE_ARN
@@ -7,16 +6,13 @@
 	STORAGE_COMMENTTABLE_STREAMARN
 Amplify Params - DO NOT EDIT *//*
 Use the following code to retrieve configured secrets from SSM:
-
 const aws = require('aws-sdk');
-
 const { Parameters } = await (new aws.SSM())
   .getParameters({
     Names: ["ACCESS_TOKEN"].map(secretName => process.env[secretName]),
     WithDecryption: true,
   })
   .promise();
-
 Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
 */
 /*
@@ -49,7 +45,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "*")
   next()
-});
+}); 
 
 const getUserId= req =>{
   try{
@@ -141,11 +137,15 @@ app.get(`/blog/comment`,async (req,res)=>{
 //코멘트 작성
 app.post('/blog/comment',async (req,res)=>{
   const timestamp = new Date().toISOString();
+  const {postId,comment} = req.body;
+  console.log(postId);
+  console.log(comment);
   const params = {
     TableName:tableName,
     Item:{
+      postId:String(req.body.postId),
       comments:{
-        ...req.body,
+        comment:JSON.stringify(req.body.comment),
         id:uuidv4(),
         createdAt:timestamp,
         updatedAt:timestamp,
@@ -153,13 +153,12 @@ app.post('/blog/comment',async (req,res)=>{
       }
     }
   }
-  dynamodb.put(params,(error,result)=>{
-    if(error){
-      res.json({statusCode:500,error:error.message});
-    }else{
-      res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item)})
-    }
-  })
+  try{
+    const result = await dynamodb.put(params).promise()
+    res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item),result:JSON.stringify(result)})
+  }catch(e){
+    res.json({statusCode:500,error:error.message});
+  }
 })
 
 

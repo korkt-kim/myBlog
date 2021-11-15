@@ -3,24 +3,19 @@
   "modules": [
     "verification-link"
   ],
-  "parentResource": "blogfront2d9a853a",
-  "functionName": "blogfront2d9a853aCustomMessage",
-  "resourceName": "blogfront2d9a853aCustomMessage",
+  "parentResource": "blog87bed555",
+  "functionName": "blog87bed555CustomMessage",
+  "resourceName": "blog87bed555CustomMessage",
   "parentStack": "auth",
-  "triggerEnvs": [
-    {
-      "key": "RESOURCENAME",
-      "value": "resourceName"
-    }
-  ],
+  "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
   "triggerDir": "C:\\Users\\zakelstorm\\AppData\\Roaming\\npm\\node_modules\\@aws-amplify\\cli\\node_modules\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
   "triggerTemplate": "CustomMessage.json.ejs",
   "triggerEventPath": "CustomMessage.event.json",
-  "roleName": "blogfront2d9a853aCustomMessage",
+  "roleName": "blog87bed555CustomMessage",
   "skipEdit": true,
-  "REDIRECTURL": "https://master.d14c4eovpg3bl6.amplifyapp.com/verification/",
+  "REDIRECTURL": "http://localhost:3000/",
   "EMAILSUBJECT": "polz's blog에 오신걸 환영합니다!",
-  "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!!\\n아래 링크를 클릭하세요\\n",
+  "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!! 아래 링크를 클릭하세요",
   "RESOURCENAME": "resourceName",
   "enableCors": false
 }

@@ -38,7 +38,7 @@ export default {
 				if(this.$nuxt?.$loading?.start){
 					this.$nuxt.$loading.start();
 				}
-				const temp =  await API.get('bloggerapi',`/blog/post?categoryId=${this.categoryId}&page=${currentPage}`);
+				const temp =  await API.get('blogapi',`/blog/post?categoryId=${this.categoryId}&page=${currentPage}`);
 				this.postList = temp.posts;
 				this.totalCount = Number(temp.totalCount);
 				if(this.$nuxt?.$loading?.start){

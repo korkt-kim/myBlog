@@ -75,12 +75,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "blogfront2d9a853aCustomMessage",
+            "blog87bed555CustomMessage",
             {
               "Fn::Join": [
                 "",
                 [
-                  "blogfront2d9a853aCustomMessage",
+                  "blog87bed555CustomMessage",
                   "-",
                   {
                     "Ref": "env"
@@ -139,12 +139,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "blogfront2d9a853aCustomMessage",
+            "blog87bed555CustomMessage",
             {
               "Fn::Join": [
                 "",
                 [
-                  "blogfront2d9a853aCustomMessage",
+                  "blog87bed555CustomMessage",
                   "-",
                   {
                     "Ref": "env"
