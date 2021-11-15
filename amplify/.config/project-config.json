@@ -1,14 +1,14 @@
 {
-  "projectName": "blogfront",
+  "projectName": "blog",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {
-    "framework": "vue",
+    "framework": "none",
     "config": {
-      "SourceDir": "/",
+      "SourceDir": "src",
       "DistributionDir": "dist",
-      "BuildCommand": "npm run-script build",
-      "StartCommand": "npm run-script start"
+      "BuildCommand": "npm.cmd run-script build",
+      "StartCommand": "npm.cmd run-script start"
     }
   },
   "providers": [

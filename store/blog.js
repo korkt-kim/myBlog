@@ -18,7 +18,7 @@ export const mutations = {
 
 export const actions = {
     async getCategories({commit}){
-        const categories = await API.get('bloggerapi','/blog/category');
+        const categories = await API.get('blogapi','/blog/category');
         categories.sort((item1,_)=>item1.parent ? 1 : -1)
         commit('setCategories',categories);
     }

@@ -8,15 +8,15 @@
         },
     
     
-          "functionbloggerName": {
+          "functionbloglambdaName": {
             "Type": "String",
-            "Default": "functionbloggerName"
+            "Default": "functionbloglambdaName"
           },
 
           
-          "functionbloggerArn": {
+          "functionbloglambdaArn": {
             "Type": "String",
-            "Default": "functionbloggerArn"
+            "Default": "functionbloglambdaArn"
           }
 
           
@@ -41,16 +41,16 @@
         
         
         
-      "bloggerapi": {
+      "blogapi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "bloggerapi",
+          "Name": "blogapi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "bloggerapi"
+              "title": "blogapi"
             },
             "host": {
                 "Fn::Join": [
@@ -172,7 +172,7 @@
                             
                             {
 
-                                "Ref": "functionbloggerArn"
+                                "Ref": "functionbloglambdaArn"
                             },
                             
                             "/invocations"
@@ -271,7 +271,7 @@
                           
                           {
 
-                            "Ref": "functionbloggerArn"
+                            "Ref": "functionbloglambdaArn"
                           },
                           
                           "/invocations"
@@ -371,7 +371,7 @@
                             
                             {
 
-                                "Ref": "functionbloggerArn"
+                                "Ref": "functionbloglambdaArn"
                             },
                             
                             "/invocations"
@@ -470,7 +470,7 @@
                           
                           {
 
-                            "Ref": "functionbloggerArn"
+                            "Ref": "functionbloglambdaArn"
                           },
                           
                           "/invocations"
@@ -552,12 +552,6 @@
                     }
                   },
                   
-                    "security": [
-                        {
-                          "sigv4": []
-                        }
-                      ],
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -576,7 +570,7 @@
                             
                             {
 
-                                "Ref": "functionbloggerArn"
+                                "Ref": "functionbloglambdaArn"
                             },
                             
                             "/invocations"
@@ -657,12 +651,6 @@
                     }
                   },
                   
-                    "security": [
-                        {
-                          "sigv4": []
-                        }
-                      ],
-                  
                   "x-amazon-apigateway-integration": {
                     "responses": {
                       "default": {
@@ -681,7 +669,7 @@
                           
                           {
 
-                            "Ref": "functionbloggerArn"
+                            "Ref": "functionbloglambdaArn"
                           },
                           
                           "/invocations"
@@ -738,12 +726,12 @@
       
         
 
-        "functionbloggerPermissionbloggerapi": {
+        "functionbloglambdaPermissionblogapi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionbloggerName"
+                        "Ref":  "functionbloglambdaName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -762,7 +750,7 @@
                             },
                             ":",
                             {
-                                "Ref": "bloggerapi"
+                                "Ref": "blogapi"
                             },
                             "/*/*/*"
                         ]
@@ -773,7 +761,7 @@
         
         
 
-      "DeploymentAPIGWbloggerapi8aeaa008": {
+      "DeploymentAPIGWblogapi9e464690": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -787,7 +775,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "bloggerapi"
+            "Ref": "blogapi"
           }
         }
       }
@@ -795,15 +783,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "bloggerapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "blogapi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "bloggerapi"
+          "Value": "blogapi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "bloggerapi"}
+          "Value": {"Ref": "blogapi"}
         }
     }
   }

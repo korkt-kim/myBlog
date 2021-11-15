@@ -2,7 +2,7 @@
     "paths": [
         {
             "name": "/blog/category",
-            "lambdaFunction": "blogger",
+            "lambdaFunction": "bloglambda",
             "privacy": {
                 "open": true
             },
@@ -10,7 +10,7 @@
         },
         {
             "name": "/blog/post",
-            "lambdaFunction": "blogger",
+            "lambdaFunction": "bloglambda",
             "privacy": {
                 "open": true
             },
@@ -18,45 +18,35 @@
         },
         {
             "name": "/blog/comment",
-            "lambdaFunction": "blogger",
+            "lambdaFunction": "bloglambda",
             "privacy": {
-                "protected": true,
-                "auth": [
-                    "/POST",
-                    "/GET",
-                    "/PUT",
-                    "/PATCH",
-                    "/DELETE"
-                ],
-                "unauth": [
-                    "/GET"
-                ]
+                "open": true
             },
             "policyResourceName": "/blog/comment"
         }
     ],
-    "resourceName": "bloggerapi",
-    "apiName": "bloggerapi",
+    "resourceName": "blogapi",
+    "apiName": "blogapi",
     "functionArns": [
         {
-            "lambdaFunction": "blogger"
+            "lambdaFunction": "bloglambda"
         }
     ],
     "privacy": {
-        "auth": 1,
-        "unauth": 1,
-        "authRoleName": "amplify-blogfront-dev-213828-authRole",
-        "unAuthRoleName": "amplify-blogfront-dev-213828-unauthRole"
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-blog-dev-11417-authRole",
+        "unAuthRoleName": "amplify-blog-dev-11417-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "blogger",
+            "resourceName": "bloglambda",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
     ],
-    "uuid": "8aeaa008"
+    "uuid": "9e464690"
 }

@@ -27,7 +27,7 @@ export default {
 			this.$nuxt.$loading.start();
 		}
 		this.postId = this.$route.params.id;
-		const {title,content,categoryId,date} = await API.get('bloggerapi',`/blog/post/${this.postId}`)
+		const {title,content,categoryId,date} = await API.get('blogapi',`/blog/post/${this.postId}`)
 		this.title = title;
 		this.content = content;
 		this.date = date;

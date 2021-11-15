@@ -1,12 +1,35 @@
 {
+  "function": {
+    "bloglambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "commenttable",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ]
+    },
+    "blog87bed555CustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "auth": {
-    "blogfront2d9a853a": {
+    "blog87bed555": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "blogfront2d9a853aCustomMessage",
+          "resourceName": "blog87bed555CustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -37,26 +60,14 @@
       }
     }
   },
-  "function": {
-    "blogger": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "blogfront2d9a853aCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
   "api": {
-    "bloggerapi": {
+    "blogapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "blogger",
+          "resourceName": "bloglambda",
           "attributes": [
             "Name",
             "Arn"
@@ -65,12 +76,10 @@
       ]
     }
   },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "type": "cicd",
-      "lastPushTimeStamp": "2021-10-26T14:31:38.855Z"
+  "storage": {
+    "commenttable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
     }
-  },
-  "storage": {}
+  }
 }

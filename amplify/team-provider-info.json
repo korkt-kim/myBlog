@@ -1,39 +1,33 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-blogfront-dev-213828-authRole",
-      "UnauthRoleArn": "arn:aws:iam::334033853485:role/amplify-blogfront-dev-213828-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::334033853485:role/amplify-blogfront-dev-213828-authRole",
+      "AuthRoleName": "amplify-blog-dev-11417-authRole",
+      "UnauthRoleArn": "arn:aws:iam::334033853485:role/amplify-blog-dev-11417-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::334033853485:role/amplify-blog-dev-11417-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-      "UnauthRoleName": "amplify-blogfront-dev-213828-unauthRole",
-      "StackName": "amplify-blogfront-dev-213828",
-      "StackId": "arn:aws:cloudformation:us-east-2:334033853485:stack/amplify-blogfront-dev-213828/4d87e290-34c7-11ec-a07a-0afd641787fa",
-      "AmplifyAppId": "d14c4eovpg3bl6"
+      "DeploymentBucketName": "amplify-blog-dev-11417-deployment",
+      "UnauthRoleName": "amplify-blog-dev-11417-unauthRole",
+      "StackName": "amplify-blog-dev-11417",
+      "StackId": "arn:aws:cloudformation:us-east-2:334033853485:stack/amplify-blog-dev-11417/183dbff0-462f-11ec-869e-0a60d767fa00",
+      "AmplifyAppId": "d2rvdopzkjudv"
     },
     "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d14c4eovpg3bl6",
-          "type": "cicd"
-        }
-      },
       "function": {
-        "blogger": {
-          "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/blogger-6f4464374b2f63706248-build.zip",
-          "secretsPathAmplifyAppId": "d14c4eovpg3bl6"
+        "bloglambda": {
+          "secretsPathAmplifyAppId": "d2rvdopzkjudv",
+          "deploymentBucketName": "amplify-blog-dev-11417-deployment",
+          "s3Key": "amplify-builds/bloglambda-4c7a6852536b356e2f75-build.zip"
         },
-        "blogfront2d9a853aCustomMessage": {
-          "REDIRECTURL": "https://master.d14c4eovpg3bl6.amplifyapp.com/verification/",
+        "blog87bed555CustomMessage": {
+          "REDIRECTURL": "http://localhost:3000/",
           "EMAILSUBJECT": "polz's blog에 오신걸 환영합니다!",
-          "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!!\\n아래 링크를 클릭하세요\n",
-          "deploymentBucketName": "amplify-blogfront-dev-213828-deployment",
-          "s3Key": "amplify-builds/blogfront2d9a853aCustomMessage-55375777305a70487452-build.zip"
+          "EMAILMESSAGE": "polz의 블로그에 가입하신 것을 환영합니다!! 아래 링크를 클릭하세요",
+          "deploymentBucketName": "amplify-blog-dev-11417-deployment",
+          "s3Key": "amplify-builds/blog87bed555CustomMessage-76464d77707741663158-build.zip"
         }
       },
       "auth": {
-        "blogfront2d9a853a": {}
+        "blog87bed555": {}
       }
     }
   }
