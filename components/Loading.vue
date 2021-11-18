@@ -27,6 +27,9 @@ export default {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.9);
+  img{
+    width:19rem;
+  }
   .loading {
     position: fixed;
     left: 50%;

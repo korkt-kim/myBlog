@@ -6,6 +6,13 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "auth",
+          "resourceName": "blog87bed555",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
           "category": "storage",
           "resourceName": "commenttable",
           "attributes": [

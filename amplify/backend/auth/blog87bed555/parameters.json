@@ -1,6 +1,6 @@
 {
     "identityPoolName": "blog87bed555_identitypool_87bed555",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "blog87bed555",
     "userPoolName": "blog87bed555_userpool_87bed555",
     "autoVerifiedAttributes": [

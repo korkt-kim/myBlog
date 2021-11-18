@@ -1,4 +1,5 @@
 /* Amplify Params - DO NOT EDIT
+	AUTH_BLOG87BED555_USERPOOLID
 	ENV
 	REGION
 	STORAGE_COMMENTTABLE_ARN
@@ -35,6 +36,7 @@ const dynamodb = new aws.DynamoDB.DocumentClient({
 });
 const tableName = 'commenttable-dev'
 
+
 // declare a new express app
 var app = express()
 app.use(bodyParser.json())
@@ -47,11 +49,11 @@ app.use(function(req, res, next) {
   next()
 }); 
 
-const getUserId= req =>{
+const getUser= req =>{
   try{
     const reqContext = req.apiGateway.event.requestContext;
-    const authProvider = reqContext.identity.cognitoAuthenticationProvider;
-    return authProvider ? authProvider.split(':CognitoSignIn:').pop() : 'Unauthorized';
+    const authProvider = reqContext?.authorizer?.claims?.sub ? {sub:reqContext.authorizer.claims.sub,name:reqContext.authorizer.claims.name} : 'unauthorized';
+    return authProvider;
   }catch(e){
     return 'Unauthorized';
   }
@@ -125,6 +127,7 @@ app.get(`/blog/comment`,async (req,res)=>{
           ":postId": postId,
     },
     TableName:tableName,
+    ScanIndexForward :true,
   }
   try{
     const result = await dynamodb.scan(params).promise()
@@ -136,93 +139,31 @@ app.get(`/blog/comment`,async (req,res)=>{
 })
 //코멘트 작성
 app.post('/blog/comment',async (req,res)=>{
-  const timestamp = new Date().toISOString();
-  const {postId,comment} = req.body;
-  console.log(postId);
-  console.log(comment);
+  const timestamp = new Date().getTime();
+  const {sub,name} = getUser(req);
+
   const params = {
     TableName:tableName,
     Item:{
-      postId:String(req.body.postId),
-      comments:{
-        comment:JSON.stringify(req.body.comment),
-        id:uuidv4(),
-        createdAt:timestamp,
-        updatedAt:timestamp,
-        userId:getUserId(req)
-      }
+      ...req.body,
+      id:uuidv4(),
+      createdAt:timestamp,
+      updatedAt:timestamp,
+      userSub:sub,
+      userName:name
     }
   }
-  try{
-    const result = await dynamodb.put(params).promise()
-    res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item),result:JSON.stringify(result)})
-  }catch(e){
-    res.json({statusCode:500,error:error.message});
-  }
+  dynamodb.put(params,(error,result)=>{
+    if(error){
+      res.json({
+        statusCode:500,error:{
+          message:error.message
+        }
+      });
+    }else{
+      res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item)})
+    }
+  })
 })
-
-
-/**********************
- * Example get method *
- **********************/
-
-app.get('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-app.get('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example delete method *
-****************************/
-
-app.delete('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.delete('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.listen(3000, function() {
-    console.log("App started")
-});
-
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
+  
 module.exports = app
