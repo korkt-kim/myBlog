@@ -4,6 +4,14 @@
     "ACCESS_TOKEN"
   ],
   "permissions": {
+    "auth": {
+      "blog87bed555": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
     "storage": {
       "commenttable": [
         "create",

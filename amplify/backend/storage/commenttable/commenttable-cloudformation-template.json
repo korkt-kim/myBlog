@@ -12,6 +12,13 @@
             "Type": "String"
         },
         
+        "sortKeyName": {
+            "Type": "String"
+        },
+        "sortKeyType": {
+            "Type": "String"
+        },
+        
         "tableName": {
             "Type": "String"
         }
@@ -33,6 +40,16 @@
                 "AttributeDefinitions": [
                   
                   {
+                      "AttributeName": "id",
+                      "AttributeType": "S"
+                  }  , 
+                  
+                  {
+                      "AttributeName": "createdAt",
+                      "AttributeType": "N"
+                  }  , 
+                  
+                  {
                       "AttributeName": "postId",
                       "AttributeType": "S"
                   } 
@@ -41,8 +58,13 @@
                 "KeySchema": [
                   
                   {
-                    "AttributeName": "postId",
+                    "AttributeName": "id",
                     "KeyType": "HASH"
+                  }  , 
+                  
+                  {
+                    "AttributeName": "createdAt",
+                    "KeyType": "RANGE"
                   } 
                   
                 ],
@@ -77,6 +99,34 @@
                     ]
                 }
                 
+                ,"GlobalSecondaryIndexes": [
+                  
+                    {
+                        "IndexName": "postId",
+                        "KeySchema": [
+                            
+                            {
+                                "AttributeName": "postId",
+                                "KeyType": "HASH"
+                            }  , 
+                            
+                            {
+                                "AttributeName": "createdAt",
+                                "KeyType": "RANGE"
+                            } 
+                            
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": "5",
+                            "WriteCapacityUnits": "5"
+                        }
+                    } 
+                  
+                ]
+                
             }
         }
     },
@@ -110,6 +160,17 @@
         "PartitionKeyType": {
             "Value": {
                 "Ref": "partitionKeyType"
+            }
+        },
+        
+        "SortKeyName": {
+            "Value": {
+                "Ref": "sortKeyName"
+            }
+        },
+        "SortKeyType": {
+            "Value": {
+                "Ref": "sortKeyType"
             }
         },
         
