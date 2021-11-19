@@ -122,19 +122,21 @@ app.post(`/blog/post`,async (req,res)=>{
 app.get(`/blog/comment`,async (req,res)=>{
   const {postId} = req.query;
   const params = {
-    FilterExpression: "postId = :postId",
-    ExpressionAttributeValues: {
-          ":postId": postId,
-    },
     TableName:tableName,
-    ScanIndexForward :true,
+    IndexName:"postId",
+    KeyConditionExpression: "postId = :postId",
+    ExpressionAttributeValues: {
+      ":postId": postId
+    },
+    
   }
-  try{
-    const result = await dynamodb.scan(params).promise()
-    res.json({result})
-  }catch(e){
-    return e;
-  }
+  dynamodb.query(params,(err,result)=>{
+    if(err){
+      res.json({statusCode:500,error:{message:err.message}});
+      return;
+    }
+    res.json({statusCode:200,result})
+  })
   
 })
 //코멘트 작성

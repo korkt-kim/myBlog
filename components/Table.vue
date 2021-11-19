@@ -77,6 +77,9 @@ export default {
 		width:50%;
 		display:flex;
 		flex-direction: column;
+		@media (max-width:768px){
+			width:95%;
+		}
 	}
 	#table{
 		
