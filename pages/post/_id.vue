@@ -1,11 +1,10 @@
 <template>
   <section id="section">
-		
+		<div class="title">{{title}}</div>
 		<div class="post">
-			<h1 class="post__title">{{title}}</h1>
-
 			<div class="post__content" v-html="content"/>
 		</div>
+		<Comment :comments="comments" :onClickRegister="registerComment" :refreshCommentList="getComments"></Comment>
 	</section>
 </template>
 
@@ -20,9 +19,10 @@ export default {
 			title:'',
 			content:'',
 			date:null,
+			comments:[],
 		}
 	},
-	async fetch(){
+	async mounted(){
 		if(this.$nuxt?.$loading?.start){
 			this.$nuxt.$loading.start();
 		}
@@ -31,11 +31,44 @@ export default {
 		this.title = title;
 		this.content = content;
 		this.date = date;
-		if(this.$nuxt?.$loading?.start){
+		await this.getComments();
+		if(this.$nuxt?.$loading?.finish){
 			this.$nuxt.$loading.finish()
 		}
 	},
-	
+	methods:{
+		async getComments(){
+			const headers={
+				headers:{
+					"Authorization": `Bearer ${this.$store.state.awsCognito.user?.signInUserSession?.idToken?.jwtToken}`
+				}
+			}
+			const {result:{Count,Items}} = await API.get('blogapi',`/blog/comment?postId=${this.postId}`,headers);
+			this.comments = Items;
+		},
+		async registerComment(comment){
+			const request = {
+				body:{
+					comment,
+					postId:this.postId
+				},
+				headers:{
+					"Content-Type": "application/json; charset=utf-8",
+					"Accept": "application/json",
+					"Authorization": `Bearer ${this.$store.state.awsCognito.user?.signInUserSession?.idToken?.jwtToken}`
+				}
+			};
+			
+			try{
+				const result = await API.post('blogapi','/blog/comment',request)
+				console.log(result);
+			}catch(e){
+				console.error(e);
+				alert(e.message);
+			}
+			
+		}
+	}
 }
 </script>
 
@@ -46,14 +79,20 @@ export default {
 	flex-direction: column;
 	color:black;
 	margin-top:5rem;
+	.title{
+		padding-bottom:1rem;
+		font-size:2rem !important;
+		color: white;
+		margin-bottom:2rem;
+	}
 	.post{
 		padding:1.5rem;
 		background-color:whitesmoke;	
 		width:70%;
-		.post__title{
-			padding-bottom:1rem;
-			font-size:2rem;
+		@media (max-width:768px) {
+			width:100%;
 		}
+		
 		.post__content{
 			overflow-x:auto;
 			h3{
@@ -94,7 +133,7 @@ export default {
 				color: #666;
 				page-break-inside: avoid;
 				font-family: monospace;
-				font-size: 15px;
+				font-size: 1rem;
 				line-height: 1.6;
 				margin-bottom: 1.6em;
 				max-width: 100%;

@@ -16,7 +16,7 @@
         "bloglambda": {
           "secretsPathAmplifyAppId": "d2rvdopzkjudv",
           "deploymentBucketName": "amplify-blog-dev-11417-deployment",
-          "s3Key": "amplify-builds/bloglambda-392f54792b62354b4137-build.zip"
+          "s3Key": "amplify-builds/bloglambda-6679587531752b653650-build.zip"
         },
         "blog87bed555CustomMessage": {
           "REDIRECTURL": "http://localhost:3000/",
