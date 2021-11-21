@@ -126,6 +126,10 @@ export default {
 					border-bottom: 1px solid lightgrey;
 				}
 			}
+			img{
+				height: auto;
+    			max-width: 100%;
+			}
 			pre{
 				background: rgb(238,238,238);
 				border: 1px solid #ddd;
