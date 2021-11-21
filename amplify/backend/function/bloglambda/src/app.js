@@ -30,6 +30,7 @@ var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 const axios = require('axios');
 const {v4: uuidv4} = require('uuid');
+const { DynamoDB } = require('aws-sdk');
 
 const dynamodb = new aws.DynamoDB.DocumentClient({
   region: 'us-east-2'
@@ -119,7 +120,7 @@ app.post(`/blog/post`,async (req,res)=>{
 })
 
 //코멘트 읽기
-app.get(`/blog/comment`,async (req,res)=>{
+app.get(`/blog/comment`,(req,res)=>{
   const {postId} = req.query;
   const params = {
     TableName:tableName,
@@ -140,10 +141,22 @@ app.get(`/blog/comment`,async (req,res)=>{
   
 })
 //코멘트 작성
-app.post('/blog/comment',async (req,res)=>{
+app.post('/blog/comment',(req,res)=>{
   const timestamp = new Date().getTime();
   const {sub,name} = getUser(req);
-
+  const {postId} = req.body;
+  if(!sub){
+    res.json({statusCode:403,error:{
+      message:'not authorized to delete this comment'
+    }})
+    return;
+  }
+  if(!postId){
+    res.json({statusCode:400,error:{
+      message:'no postId'
+    }})
+    return;
+  }
   const params = {
     TableName:tableName,
     Item:{
@@ -165,6 +178,46 @@ app.post('/blog/comment',async (req,res)=>{
     }else{
       res.json({statusCode:200,url:req.url,body:JSON.stringify(params.Item)})
     }
+  })
+})
+
+app.delete('/blog/comment',(req,res)=>{
+  const {id} = req.query;
+  const {sub} = getUser(req);
+  if(!id){
+    res.json({statusCode:400,error:{
+      message:'no comment id'
+    }})
+    return;
+  }
+  
+  if(!sub){
+    res.json({statusCode:403,error:{
+      message:'not authorized to delete this comment'
+    }})
+    return;
+  }
+
+  const params = {
+    TableName:tableName,
+    Key:{
+      id:id
+    },
+    ConditionExpression: 'userSub = :userSub',
+    ExpressionAttributeValues:{
+      ':userSub': sub
+    }
+  }
+  dynamodb.delete(params,(error,result)=>{
+    if(error){
+      res.json({
+        statusCode:500,error:{
+          message:error.message
+        }
+      })
+      return;
+    }
+    res.json({statusCode:204})
   })
 })
   

@@ -1,7 +1,5 @@
 {
     "tableName": "commenttable",
     "partitionKeyName": "id",
-    "partitionKeyType": "S",
-    "sortKeyName": "createdAt",
-    "sortKeyType": "N"
+    "partitionKeyType": "S"
 }
